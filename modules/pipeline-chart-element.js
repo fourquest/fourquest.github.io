@@ -1,4 +1,4 @@
-import {Chart, registerables} from "../node_modules/chart.js/dist/chart.esm.js";
+import {Chart, registerables} from "./chart.js/chart.esm.js";
 
 export class PipelineChartElement extends HTMLElement {
 	#shadowRoot;
