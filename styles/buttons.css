@@ -1,0 +1,55 @@
+.buttons {
+	grid-area: buttons;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	margin-left: 0.3rem;
+}
+
+.button {
+	text-decoration: none;
+	border: 1px solid var(--primary-color);
+	background-color: #fff;
+	color: var(--primary-color);
+	padding: 0.25rem 0.5rem;
+	font-weight: bold;
+	font-variant: all-small-caps;
+	margin-left: 0.25rem;
+}
+
+.button:hover {
+	background-color: var(--primary-color);
+	color: #fff;
+}
+
+.upload.button:before {
+	content: "Upload"
+}
+
+.download.button:before {
+	content: "Download"
+}
+
+.close.button:before {
+	content: "Close"
+}
+
+.view.button:before {
+	content: "View"
+}
+
+.add-row.button:before {
+	content: "Add Row"
+}
+
+.delete-row {
+	text-decoration: none;
+	padding-bottom: 6px;
+	margin-left: 0.5rem;
+}
+
+.delete-row:before {
+	content: "🗑️";
+}
+

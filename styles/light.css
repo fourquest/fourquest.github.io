@@ -1,0 +1,10 @@
+html {
+	/** in use */
+	--primary-color: #0053a3;
+	--secondary-color: #e9edf0;
+	--dark-accent: #ffc627;
+
+	/** not used yet */
+	--medium-accent: #ffeb99;
+	--light-accent: #fff0b3;
+}

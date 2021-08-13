@@ -1,0 +1,57 @@
+@import "buttons.css";
+@import "forms.css";
+@import "details-summary.css";
+@import "tables.css";
+@import "pipeline-chart.css";
+@import "injection-profile-dialog.css";
+@import "site-header.css";
+@import "elevation-profile.css";
+@import "csv-editor.css";
+
+html {
+	margin: 0;
+	padding: 0;
+	font: 16px/20px normal Arial;
+	background-color: #efefef;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--primary-color);
+	background-color: var(--primary-color);
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+
+.site {
+	margin: 5rem auto 0 auto;
+	max-width: 1100px;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-around;
+	background-color: #efefef;
+	z-index: 0;
+	font-size: 0;
+	box-shadow: 0 -1px 2px #0004;
+}
+
+.charts {
+	grid-area: charts;
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: stretch;
+	overflow: hidden;
+	padding: 0.5rem 1rem 1rem 1rem;
+	box-sizing: border-box;
+	height: 100%;
+}
+
+.data {
+	grid-area: data;
+	flex: 0 0 20rem;
+	padding: 0.5rem 1rem 1rem 1rem;
+}

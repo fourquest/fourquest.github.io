@@ -1,0 +1,25 @@
+
+table {
+	font-size: 1rem;
+	/*width: 100%;*/
+	border-collapse: collapse;
+	/*border: thin solid var(--primary-color);*/
+	box-shadow: 1px 1px 1px #32378488;
+	background-color: #fff;
+}
+
+thead {
+	background-color: var(--primary-color);
+	color: #fff;
+	font-variant: all-small-caps;
+}
+
+.column-group {
+	color: #fffe;
+}
+
+td {
+	text-align: right;
+	padding: 0.2rem 0.5rem;
+	color: #333;
+}

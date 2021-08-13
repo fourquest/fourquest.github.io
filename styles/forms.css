@@ -1,0 +1,54 @@
+.field {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: 0.5rem;
+}
+
+.field [type="text"],
+.field [type="number"]{
+	line-height: 1.4rem;
+	height: 1.4rem;
+	padding: 0 0 0 0.5rem;
+	text-align: right;
+	border: 0;
+	box-shadow: 1px 1px 1px #32378488;
+	font-size: 0.9rem;
+	width: 5rem;
+	margin-left: 0.5rem;
+}
+
+.field [type="submit"] {
+	all: unset;
+	height: 1px;
+	width: 1px;
+	position: fixed;
+	left: -1px;
+	top: -1px;
+}
+
+.field label {
+	font-size: 1rem;
+	color: var(--primary-color);
+}
+
+.field label:hover + .tooltip,
+.tooltip:hover {
+	display: block;
+}
+
+.tooltip {
+	display: none;
+	position: absolute;
+	top: -5rem;
+	left: -24rem;
+	width: 25rem;
+	z-index: 1;
+	padding: 0.5rem;
+	box-shadow: 1px 1px 1px #32378488;
+	color: #555;
+	background-color: #fff;
+	font-size: 1rem;
+}

@@ -1,7 +1,384 @@
 <!DOCTYPE html>
 
-<meta charset="utf-8"/>
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="application-name" content="Injection Calculator"/>
+<meta name="author" content="Chelsie Bajic <chbajic@protonmail.com"/>
+
+<link href="./images/logo.svg" rel="icon"/>
+<link href="./styles/light.css" rel="stylesheet" media="all and (prefers-color-scheme: light)"/>
+<link href="./styles/dark.css" rel="stylesheet" media="all and (prefers-color-scheme: dark)"/>
+<link href="styles/demo.css" rel="stylesheet" media="all">
+
 <title>FourQuest | Injection Calculator</title>
-<h1>FourQuest | Injection Calculator</h1>
-<p>Coming soon</p>
+
+<header class="site-header">
+	<a target="_blank" href="https://www.fourquest.com"><img class="site-logo" src="./images/logo-name.png"/></a>
+</header>
+<main class="site">
+	<section class="charts">
+		<pipeline-chart id="velocities-chart" label="Injection Velocities vs Distance"></pipeline-chart>
+		<pipeline-chart id="elevations-chart" label="Elevations vs Distance"></pipeline-chart>
+		<pipeline-chart id="pressures-chart" label="Injection Pressures vs Distance"></pipeline-chart>
+	</section>
+	<section class="data">
+		<details class="injection-profile-controls" open>
+			<summary>Injection Profile</summary>
+			<div class="buttons">
+				<a class="button" href="#injection-profile">View</a>
+				<a class="button" id="quick-download" href="javascript: void 0">Download</a>
+			</div>
+		</details>
+		<details class="chart-injection-fluid" open>
+			<summary>Injection Fluid</summary>
+			<form id="injection-fluid-form" autocomplete="off">
+				<div class="field">
+					<label for="initial-rate">Initial Rate</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Initial Rate</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="initialRate" id="initial-rate" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="initial-back-pressure">Initial Back Pressure</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Initial Back Pressure</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="initialBackPressure" id="initial-back-pressure" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="pig-friction">Pig Friction</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Pig Friction</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="pigFriction" id="pig-friction" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="specific-gravity">Specific Gravity</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Specific Gravity</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="specificGravity" id="specific-gravity" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="viscosity">Viscosity</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Viscosity</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="viscosity" id="viscosity" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="pig-bypass">Pig Bypass</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Pig Bypass</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="pigBypass" id="pig-bypass" placeholder="0.00%" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="cool-down-losses">Cool Down Losses</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Cool Down Losses</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="coolDownLosses" id="cool-down-losses" placeholder="0.00%" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="output-distance">Output Distance</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Output Distance</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="outputDistance" id="output-distance" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="inject-fluid-submit" hidden>Update</label>
+					<input id="inject-fluid-submit" type="submit" value="Update"/>
+				</div>
+			</form>
+		</details>
+		<details class="chart-pipeline" open>
+			<summary>Pipeline</summary>
+			<form id="pipeline-form" autocomplete="off">
+				<div class="field">
+					<label for="total-length">Total Length</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Total Length</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="totalLength" id="total-length" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="purge-length">Purge Length</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Purge Length</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="purgeLength" id="purge-length" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="outside-diameter">Outside Diameter</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Total Length</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="outsideDiameter" id="outside-diameter" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="wall-thickness">Wall Thickness</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Total Length</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="wallThickness" id="wall-thickness" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="maximum-pipe-pressure">Maximum Pipe Pressure</label><div class="tooltip">
+					<dl>
+						<dt>Name</dt>
+						<dd>Total Length</dd>
+						<dt>Unit</dt>
+						<dd>Meters</dd>
+						<dt>Description</dt>
+						<dd>
+
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							onec vitae lectus ut orci aliquet bibendum. Pellentesque
+							habitant morbi tristique senectus et netus et malesuada
+							fames ac turpis egestas. Aenean vulputate vitae massa vel
+							vulputate. Nullam eu suscipit libero. Ut et magna
+							sollicitudin nisl gravida dapibus sed sed odio.
+
+						</dd>
+					</dl>
+				</div>
+					<input name="maximumPipePressure" id="maximum-pipe-pressure" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="roughness-factor">Roughness Factor</label>
+					<div class="tooltip">
+						<dl>
+							<dt>Name</dt>
+							<dd>Roughness Factor</dd>
+							<dt>Unit</dt>
+							<dd>Meters</dd>
+							<dt>Description</dt>
+							<dd>
+
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+								onec vitae lectus ut orci aliquet bibendum. Pellentesque
+								habitant morbi tristique senectus et netus et malesuada
+								fames ac turpis egestas. Aenean vulputate vitae massa vel
+								vulputate. Nullam eu suscipit libero. Ut et magna
+								sollicitudin nisl gravida dapibus sed sed odio.
+
+							</dd>
+						</dl>
+					</div>
+					<input name="roughnessFactor" id="roughness-factor" placeholder="0.00m" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
+					<label for="pipeline-submit" hidden>Update</label>
+					<input id="pipeline-submit" type="submit" value="Update"/>
+				</div>
+			</form>
+		</details>
+		<details class="elevation-profile" open>
+			<summary>Elevation Profile</summary>
+			<csv-editor mode="text"></csv-editor>
+		</details>
+	</section>
+</main>
+<dialog id="injection-profile">
+	<header>
+		<h2 class="dialog-heading">Injection Profile</h2>
+	</header>
+	<csv-editor mode="readonly" close="#"></csv-editor>
+</dialog>
+
+<script src="modules/webstie.js" type="module"></script>

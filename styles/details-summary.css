@@ -1,0 +1,12 @@
+
+details {
+	font-size: 1rem;
+	margin-bottom: 1rem;
+}
+
+summary {
+	font-size: 1.05rem;
+	color: #222;
+	margin: 0 0 0.5rem 0;
+	cursor: pointer;
+}

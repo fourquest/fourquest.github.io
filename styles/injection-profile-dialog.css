@@ -1,0 +1,48 @@
+#injection-profile {
+	position: fixed;
+	z-index: 2;
+	font-size: 1rem;
+	top: 1rem;
+	left: 0px;
+	right: 0px;
+	overflow: auto;
+	box-sizing: border-box;
+	box-shadow: 1px 1px 1px 2px #32378488, -1px -1px 1px 2px #32378488;
+	border: 0;
+	width: 36rem;
+	display: none;
+	flex-direction: column;
+	justify-content: stretch;
+	align-items: stretch;
+	margin: auto;
+}
+
+#injection-profile:target {
+	display: flex;
+}
+
+dialog header {
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: auto 1fr auto;
+	grid-template-areas:
+		"heading spacer buttons";
+	height: 3rem;
+	background-color: #fff;
+}
+
+#injection-profile table {
+	grid-area: table;
+	margin: 0;
+}
+
+.dialog-heading {
+	grid-area: heading;
+	margin: 0;
+	font-size: 1.1rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-weight: normal;
+	color: var(--primary-color);
+}

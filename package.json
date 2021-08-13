@@ -1,0 +1,12 @@
+{
+  "name": "@fourquest/injection-calculator",
+  "version": "0.1.0",
+  "author": "FourQuest Authors",
+  "keywords": [],
+  "description": "",
+  "main": "index.html",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^3.5.0"
+  }
+}

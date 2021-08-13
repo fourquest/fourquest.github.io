@@ -1,0 +1,10 @@
+
+pipeline-chart {
+	display: block;
+	padding: 0 0.5rem;
+	box-shadow: 1px 1px 1px #32378488;
+	background-color: #fff;
+	margin-bottom: 0.5rem;
+	width: 100%;
+	flex: 1 1 auto;
+}

@@ -1,0 +1,17 @@
+@import "csv-editor.css";
+
+html {
+	margin: 0;
+	padding: 0;
+	font: 16px/20px normal Arial;
+	background-color: #efefef;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--primary-color);
+	background-color: var(--primary-color);
+	min-height: 100vh;
+	box-sizing: border-box;
+}
