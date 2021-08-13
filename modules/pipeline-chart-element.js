@@ -1,12 +1,12 @@
 import {Chart, registerables} from "./chart.js/chart.esm.js";
 
 export class PipelineChartElement extends HTMLElement {
-	#shadowRoot;
+	_shadowRoot;
 	chart;
 
 	constructor() {
 		super();
-		this.#shadowRoot = this.attachShadow({"mode": "closed"});
+		this._shadowRoot = this.attachShadow({"mode": "closed"});
 		this.chart = null;
 	}
 
@@ -39,8 +39,8 @@ export class PipelineChartElement extends HTMLElement {
 
 	update(labels, data) {
 		const canvas = document.createElement("canvas");
-		this.#shadowRoot.innerHTML = "";
-		this.#shadowRoot.appendChild(canvas);
+		this._shadowRoot.innerHTML = "";
+		this._shadowRoot.appendChild(canvas);
 		this.chart = new Chart(
 			canvas,
 			this.buildChartOptions(labels, data));

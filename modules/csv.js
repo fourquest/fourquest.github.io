@@ -27,63 +27,63 @@ template.innerHTML = `
 
 export class CsvEditorElement extends HTMLElement {
 
-	#text;
-	#data;
-	#mode;
-	#closeButton;
-	#textViewButton;
-	#tableViewButton;
-	#textView;
-	#tableView;
-	#uploadButton;
-	#downloadButton;
-	#fileInput;
-	#viewButtons;
-	#views;
-	#footerButtonsElement;
-	#textarea;
+	_text;
+	_data;
+	_mode;
+	_closeButton;
+	_textViewButton;
+	_tableViewButton;
+	_textView;
+	_tableView;
+	_uploadButton;
+	_downloadButton;
+	_fileInput;
+	_viewButtons;
+	_views;
+	_footerButtonsElement;
+	_textarea;
 
 	constructor() {
 		super();
 		const shadow = this.attachShadow({"mode": "closed"});
 		const content = template.content.cloneNode(true);
 
-		this.#text = "";
-		this.#data = {"headers":[], "content":[]}
-		this.#closeButton = content.querySelector("[part~='close-button' i]");
-		this.#textViewButton = content.querySelector("[part~='text-view-button' i]");
-		this.#tableViewButton = content.querySelector("[part~='table-view-button' i]");
-		this.#downloadButton = content.querySelector("[part~='download-button' i]");
-		this.#uploadButton = content.querySelector("[part~='upload-button' i]");
-		this.#textView = content.querySelector("[part~='text-view' i]");
-		this.#tableView = content.querySelector("[part~='table-view' i]");
-		this.#fileInput = content.querySelector("#file-input");
-		this.#textarea = content.querySelector("textarea");
-		this.#footerButtonsElement = content.querySelector("[part='footer-buttons']")
-		this.#viewButtons = [
-			this.#textViewButton,
-			this.#tableViewButton
+		this._text = "";
+		this._data = {"headers":[], "content":[]}
+		this._closeButton = content.querySelector("[part~='close-button' i]");
+		this._textViewButton = content.querySelector("[part~='text-view-button' i]");
+		this._tableViewButton = content.querySelector("[part~='table-view-button' i]");
+		this._downloadButton = content.querySelector("[part~='download-button' i]");
+		this._uploadButton = content.querySelector("[part~='upload-button' i]");
+		this._textView = content.querySelector("[part~='text-view' i]");
+		this._tableView = content.querySelector("[part~='table-view' i]");
+		this._fileInput = content.querySelector("#file-input");
+		this._textarea = content.querySelector("textarea");
+		this._footerButtonsElement = content.querySelector("[part='footer-buttons']")
+		this._viewButtons = [
+			this._textViewButton,
+			this._tableViewButton
 		];
-		this.#views = [
-			this.#textView,
-			this.#tableView
+		this._views = [
+			this._textView,
+			this._tableView
 		];
 
-		this.#textarea.addEventListener("change", this.#handleTextChange.bind(this));
-		this.#footerButtonsElement.addEventListener("click", this.#handleFooterButtonsClick.bind(this));
-		this.#fileInput.addEventListener("change", this.#handleFileInputChange.bind(this), false);
-		this.#mode = "text";
+		this._textarea.addEventListener("change", this._handleTextChange.bind(this));
+		this._footerButtonsElement.addEventListener("click", this._handleFooterButtonsClick.bind(this));
+		this._fileInput.addEventListener("change", this._handleFileInputChange.bind(this), false);
+		this._mode = "text";
 		shadow.appendChild(content);
 	}
 
 	get close() {
-		return this.#closeButton.href;
+		return this._closeButton.href;
 	}
 
 	set close(value) {
 		if (typeof value !== "string")
 			throw TypeError("close must be a string");
-		const button = this.#closeButton;
+		const button = this._closeButton;
 		if (close.href === value)
 			return;
 		if (value === "") {
@@ -95,23 +95,23 @@ export class CsvEditorElement extends HTMLElement {
 	}
 
 	get data() {
-		return this.#data;
+		return this._data;
 	}
 
 	set data(value) {
-		this.#text = serialize(value);
-		this.#data = value;
+		this._text = serialize(value);
+		this._data = value;
 		this.draw();
 		this.dispatchEvent(new CustomEvent("change", {bubbles: true}));
 	}
 
 	get text() {
-		return this.#text;
+		return this._text;
 	}
 
 	set text(value) {
-		this.#data = deserialize(value);
-		this.#text = value;
+		this._data = deserialize(value);
+		this._text = value;
 		this.draw();
 		this.dispatchEvent(new CustomEvent("change", {bubbles: true}));
 	}
@@ -150,16 +150,16 @@ export class CsvEditorElement extends HTMLElement {
 		tbody.part.add("tbody");
 		table.part.add("table");
 		table.append(thead, tbody);
-		this.#tableView.innerHTML = "";
-		this.#tableView.appendChild(table);
+		this._tableView.innerHTML = "";
+		this._tableView.appendChild(table);
 	}
 
 	drawText() {
-		this.#textarea.value = this.text;
+		this._textarea.value = this.text;
 	}
 
 	get mode() {
-		return this.#mode;
+		return this._mode;
 	}
 
 	set mode(value) {
@@ -168,29 +168,29 @@ export class CsvEditorElement extends HTMLElement {
 			return;
 		switch(value) {
 			case "text":
-				this.#tableViewButton.part.remove("inactive");
-				this.#textViewButton.part.add("inactive");
-				this.#tableView.part.add("inactive");
-				this.#textView.part.remove("inactive");
+				this._tableViewButton.part.remove("inactive");
+				this._textViewButton.part.add("inactive");
+				this._tableView.part.add("inactive");
+				this._textView.part.remove("inactive");
 				break;
 			case "table":
-				this.#tableViewButton.part.add("inactive");
-				this.#textViewButton.part.remove("inactive");
-				this.#tableView.part.remove("inactive");
-				this.#textView.part.add("inactive");
+				this._tableViewButton.part.add("inactive");
+				this._textViewButton.part.remove("inactive");
+				this._tableView.part.remove("inactive");
+				this._textView.part.add("inactive");
 				break;
 			case "readonly":
-				this.#tableViewButton.part.add("inactive");
-				this.#textViewButton.part.add("inactive");
-				this.#tableView.part.remove("inactive");
-				this.#textView.part.add("inactive");
-				this.#uploadButton.part.add("inactive");
+				this._tableViewButton.part.add("inactive");
+				this._textViewButton.part.add("inactive");
+				this._tableView.part.remove("inactive");
+				this._textView.part.add("inactive");
+				this._uploadButton.part.add("inactive");
 				break;
 			default:
 				console.warn("Requested unknown mode %s, reverting to %s", value, mode);
 				value = mode;
 		}
-		this.#mode = value;
+		this._mode = value;
 		this.setAttribute("mode", value);
 	}
 
@@ -217,14 +217,14 @@ export class CsvEditorElement extends HTMLElement {
 		anchor.click();
 	}
 
-	#handleTextChange() {
-		this.text = this.#textarea.value;
+	_handleTextChange() {
+		this.text = this._textarea.value;
 	}
 
-	#handleFileInputChange(event) {
+	_handleFileInputChange(event) {
 		let count = 0;
-		const textarea = this.#textarea;
-		const files = this.#fileInput.files;
+		const textarea = this._textarea;
+		const files = this._fileInput.files;
 		let text = "";
 		const onload = event => {
 			text += event.target.result;
@@ -241,19 +241,19 @@ export class CsvEditorElement extends HTMLElement {
 		}
 	};
 
-	#handleFooterButtonsClick(event) {
+	_handleFooterButtonsClick(event) {
 		switch(event.target) {
-			case this.#tableViewButton:
+			case this._tableViewButton:
 				this.mode = "table";
 				break;
-			case this.#textViewButton:
+			case this._textViewButton:
 				this.mode = "text";
 				break;
-			case this.#downloadButton:
+			case this._downloadButton:
 				this.download();
 				break;
-			case this.#uploadButton:
-				this.#fileInput.click();
+			case this._uploadButton:
+				this._fileInput.click();
 				break;
 			default:
 				return;
