@@ -12,6 +12,7 @@
 /**
  * @typedef PipelineDescriptor
  * @property {number} purgeLength
+ * @property {number} totalLength
  * @property {number} outsideDiameter
  * @property {number} wallThickness
  * @property {number} maximumPipePressure
@@ -52,34 +53,61 @@
  * @return {InjectionProfileDescriptor}
  */
 export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
-	const pressureLimit = injectionFluid.initialBackPressure * 1000;
-	const pigFriction = injectionFluid.pigFriction * 1000;
-	const insideDiameter = (pipeline.outsideDiameter - (2 * pipeline.wallThickness)) / 1000;
-	const nitrogenInjectionM3PerSec = injectionFluid.initialRate / 60;
-	const rho = injectionFluid.specificGravity * 1000;
-	const eta = injectionFluid.viscosity * rho / 1000000;
-	const maxPipePressure = pipeline.maximumPipePressure * 1000;
-	const area = 0.25 * (insideDiameter * insideDiameter) * Math.PI;
-	const slugVolume = area * pipeline.totalLength;
-	const freeVolume = area * pipeline.purgeLength;
-	const freeVolumePerKm = area * 1000;
-	const mass = slugVolume * rho;
-	const pinit = pressureLimit;
-	const backPressure = pressureLimit;
-	const slugLength = slugVolume / area;
-	const tim = 0;
-	const slugBackPressure = 0;
-	const elevationBackOfLine = elevationProfile[0][1];
-	const elevationFrontOfLine = elevationProfile[elevationProfile.length-1][1];
-	const hydback = Math.abs(rho * 9.81 * (elevationFrontOfLine - elevationBackOfLine));
-	const initialVelocity = 0.01;
-	const velocity = initialVelocity;
-	const previousVelocity = velocity;
-	const newVelocity = velocity;
-	const nm3Pumped = 0;
-	const cushion = 10;
-	const cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
-	const cushion_n_m3 = cushion + area + cushionInitialBar;
+
+	// Calculate pressure limit.
+	let pressureLimit = injectionFluid.initialBackPressure * 1000;
+
+	// Convert pig friction from kPa to Pa.
+	let pigFriction = injectionFluid.pigFriction * 1000;
+
+	// Calculate inside diameter of pipeline.
+	let insideDiameter = (pipeline.outsideDiameter - (2 * pipeline.wallThickness));
+
+	// Convert inside pipe diameter to meters so it is in S.I.
+	insideDiameter = insideDiameter / 1000; 
+
+	// Convert initial nitrogen injection rate to S.I. (Nm3/sec).
+	let nitrogenInjectionM3PerSec = injectionFluid.initialRate / 60;
+
+	// Calculate fluid density (rho, kg/m3).
+	let rho = injectionFluid.specificGravity * 1000;
+
+	// Calculate dynamic viscosity Ns/m2.
+	let eta = injectionFluid.viscosity * rho / 1000000;
+
+	// Convert max pipe pressure to S.I (kPa to Pa).
+	let maxPipePressure = pipeline.maximumPipePressure * 1000;
+
+	// Calculate cross sectional area of the pipe. 
+	let area = 0.25 * (insideDiameter * insideDiameter) * Math.PI;
+
+	// Calculate slug volume. 
+	let slugVolume = area * pipeline.totalLength;
+
+	// Calculate free volume.
+	let freeVolume = area * pipeline.purgeLength;
+
+	// Calculare free volume per kilometer.
+	let freeVolumePerKm = area * 1000;
+
+
+	let mass = slugVolume * rho;
+	let pinit = pressureLimit;
+	let backPressure = pressureLimit;
+	let slugLength = slugVolume / area;
+	let tim = 0;
+	let slugBackPressure = 0;
+	let elevationBackOfLine = elevationProfile[0][1];
+	let elevationFrontOfLine = elevationProfile[elevationProfile.length-1][1];
+	let hydback = Math.abs(rho * 9.81 * (elevationFrontOfLine - elevationBackOfLine));
+	let initialVelocity = 0.01;
+	let velocity = initialVelocity;
+	let previousVelocity = velocity;
+	let newVelocity = velocity;
+	let nm3Pumped = 0;
+	let cushion = 10;
+	let cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
+	let cushion_n_m3 = cushion + area + cushionInitialBar;
 
 
 	// If successful change element "Calculated injection profile" to green color

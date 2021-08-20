@@ -168,6 +168,25 @@
 			<summary>Pipeline</summary>
 			<form id="pipeline-form" autocomplete="off" class="form-backgrounds">
 				<div class="field">
+					<label for="total-length">Total Length</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Total Length</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Meters</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the total length of pipeline, this will be used to calculate the mass of the slug
+								if the length of pipline to be displaced is less than the total length of the pipeline.  
+							</dd>
+						</dl>
+					</div>
+					<input name="purgeLength" id="purge-length" placeholder="0.00" type="number" step="0.01" required/>
+				</div>
+				<div class="field">
 					<label for="purge-length">Purge Length</label>
 					<div class="tooltip">
 						<dl>
@@ -179,7 +198,7 @@
 							<br>
 							<dt><b>Description</b></dt>
 							<dd>
-								Enter the length of pipeline to be purged in meters. 
+								Enter the length of pipeline to be purged (displaced) in meters. 
 							</dd>
 						</dl>
 					</div>
