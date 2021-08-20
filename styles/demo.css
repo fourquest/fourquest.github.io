@@ -55,3 +55,9 @@ body {
 	flex: 0 0 20rem;
 	padding: 0.5rem 1rem 1rem 1rem;
 }
+
+#program-title{
+	margin: 0 auto 0 auto;
+	color: #0053a3;
+}
+
