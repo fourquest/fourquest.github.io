@@ -18,7 +18,7 @@ template.innerHTML = `
 		<a part="text-view-button button inactive"></a>
 		<a part="table-view-button button"></a>
 		<a part="upload-button button"></a>
-		<a part="download-button button"></a>
+		<a part="download-button button" hidden></a>
 		<a part="close-button button inactive"></a>
 	</div>
 </footer>
