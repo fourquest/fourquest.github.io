@@ -61,3 +61,34 @@ body {
 	color: #0053a3;
 }
 
+.help-tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: dotted 2px #555;
+	cursor: help;
+  }
+  
+  .help-tooltip .tooltiptext {
+	visibility: hidden;
+	width: 25rem;
+	background-color: #fff;
+	color: #555;
+	text-align: center;
+	padding: 0.5rem;
+	box-shadow: 1px 1px 1px #32378488;
+	position: absolute;
+	z-index: 1;
+	margin-left: -60px;
+	opacity: 0;
+	top: -5rem;
+	left: -24rem;
+	font-size: 1rem;
+	transition: opacity 1s;
+	cursor: help;
+  }
+  
+  .help-tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+	cursor: help;
+  }

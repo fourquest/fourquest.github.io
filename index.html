@@ -142,6 +142,20 @@
 				</div>
 				<div class="field">
 					<label for="cool-down-losses">Cool Down Losses</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Cool Down Losses</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Percent</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the cool down losses as a percent of the total N<sub>2</sub> volume. 
+							</dd>
+						</dl>
+					</div>
 					<input name="coolDownLosses" id="cool-down-losses" placeholder="0.00" type="number" step="0.01" required/>
 				</div>
 				<div class="field">
@@ -250,22 +264,12 @@
 		</details>
 		<details class="elevation-profile" open>
 			<summary>Elevation Profile</summary>
-			<csv-editor mode="text">
-				<div class="tooltip">
-					<dl>
-						<dt><b>Name</b></dt>
-						<dd>Roughness</dd>
-						<br>
-						<dt><b>Units</b></dt>
-						<dd>Meters</dd>
-						<br>
-						<dt><b>Description</b></dt>
-						<dd>
-							Distance/Elevation
-						</dd>
-					</dl>
-				</div>
-			</csv-editor>
+			<csv-editor mode="text"></csv-editor>
+			<div class="help-tooltip">Help
+				<span class="tooltiptext">Elevation profile must be uploaded as a csv file with distance parameter in the first column
+					and elevation parameter in the second column, both in meters. <br><br> File must end with .csv
+				</span>
+			  </div>
 		</details>
 		<br>
 		<br>
