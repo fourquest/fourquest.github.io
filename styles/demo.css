@@ -66,6 +66,7 @@ body {
 	display: inline-block;
 	border-bottom: dotted 2px #555;
 	cursor: help;
+	margin-bottom: 1rem;
   }
   
   .help-tooltip .tooltiptext {
