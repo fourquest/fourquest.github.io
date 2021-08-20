@@ -18,7 +18,6 @@ template.innerHTML = `
 		<a part="text-view-button button inactive"></a>
 		<a part="table-view-button button"></a>
 		<a part="upload-button button"></a>
-		<a part="download-button button" hidden></a>
 		<a part="close-button button inactive"></a>
 	</div>
 </footer>
@@ -36,7 +35,6 @@ export class CsvEditorElement extends HTMLElement {
 	_textView;
 	_tableView;
 	_uploadButton;
-	_downloadButton;
 	_fileInput;
 	_viewButtons;
 	_views;
@@ -53,7 +51,6 @@ export class CsvEditorElement extends HTMLElement {
 		this._closeButton = content.querySelector("[part~='close-button' i]");
 		this._textViewButton = content.querySelector("[part~='text-view-button' i]");
 		this._tableViewButton = content.querySelector("[part~='table-view-button' i]");
-		this._downloadButton = content.querySelector("[part~='download-button' i]");
 		this._uploadButton = content.querySelector("[part~='upload-button' i]");
 		this._textView = content.querySelector("[part~='text-view' i]");
 		this._tableView = content.querySelector("[part~='table-view' i]");
@@ -207,15 +204,6 @@ export class CsvEditorElement extends HTMLElement {
 		}
 	}
 
-	download(name = "data.csv") {
-		const blob = new Blob([this.text], {type: "text/csv"});
-		const url = URL.createObjectURL(blob);
-		const anchor = document.createElement("a");
-
-		anchor.href = url;
-		anchor.download = name;
-		anchor.click();
-	}
 
 	_handleTextChange() {
 		this.text = this._textarea.value;
@@ -248,9 +236,6 @@ export class CsvEditorElement extends HTMLElement {
 				break;
 			case this._textViewButton:
 				this.mode = "text";
-				break;
-			case this._downloadButton:
-				this.download();
 				break;
 			case this._uploadButton:
 				this._fileInput.click();
