@@ -22,13 +22,6 @@
 		<pipeline-chart id="pressures-chart" label="Injection Pressures vs Distance"></pipeline-chart>
 	</section>
 	<section class="data">
-		<details class="injection-profile-controls" open>
-			<summary style="color: red;">Calculated Injection Profile</summary>
-			<div class="buttons">
-				<a class="button" href="#injection-profile">View</a>
-				<a class="button" id="quick-download" href="javascript: void 0">Download</a>
-			</div>
-		</details>
 		<details class="chart-injection-fluid" open>
 			<summary>Injection Parameters</summary>
 			<form id="injection-fluid-form" autocomplete="off">
@@ -270,6 +263,14 @@
 		<details class="elevation-profile" open>
 			<summary>Elevation Profile</summary>
 			<csv-editor mode="text"></csv-editor>
+		</details>
+		<details class="injection-profile-controls" open>
+			<summary style="color: red;">Calculated Injection Profile</summary>
+			<div class="buttons">
+				<a class="button" id="calculate-button" href="javascript: void 0">Calculate</a>
+				<a class="button" href="#injection-profile">View</a>
+				<a class="button" id="quick-download" href="javascript: void 0">Download</a>
+			</div>
 		</details>
 	</section>
 </main>
