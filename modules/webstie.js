@@ -8,16 +8,12 @@ const downloadButton = document.getElementById("quick-download");
 const velocitiesChart = document.getElementById("velocities-chart");
 const elevationsChart = document.getElementById("elevations-chart");
 const pressuresChart = document.getElementById("pressures-chart");
-const calculateButton = document.getElementById("calculate-button");
 const clearButton = document.getElementById("clear-button");
 
 clearButton.addEventListener("click", function(){
-	location.reload();
+	clearButton.innerHTML = "Test";
 });
 
-calculateButton.addEventListener("click", function() {
-	onSubmit();
-});
 
 function onSubmit(event) {
 	if (event.target !== injectionProfileEditor) {
