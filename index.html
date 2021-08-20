@@ -34,7 +34,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Initial Nitrogen Rate</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>Sm<sup>3</sup>/min</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -53,7 +53,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Initial Back Pressure</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>kPa</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -72,7 +72,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Pig Friction</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>kPa</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -90,7 +90,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Specific Gravity of liquid fluid to be displaced</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>unitless</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -110,7 +110,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Viscosity of liquid fluid to be displaced</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>cSt</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -126,13 +126,13 @@
 					<label for="pig-bypass">Pig Bypass</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
+							<dt><b>Name</b></dt>
 							<dd>Pig Bypass</dd>
 							<br>
-							<dt>Unit</dt>
+							<dt><b>Units</b></dt>
 							<dd>Percent</dd>
 							<br>
-							<dt>Description</dt>
+							<dt><b>Description</b></dt>
 							<dd>
 								Enter the pig bypass losses as a percent of the total N<sub>2</sub> volume. 
 							</dd>
@@ -142,20 +142,6 @@
 				</div>
 				<div class="field">
 					<label for="cool-down-losses">Cool Down Losses</label>
-					<div class="tooltip">
-						<dl>
-							<dt><b>Name</b></dt>
-							<dd>Cool Down Losses</dd>
-							<br> 
-							<dt><b>Unit</b></dt>
-							<dd>Percent</dd>
-							<br>
-							<dt>Description</dt>
-							<dd>
-								Enter the cool down losses as a percent of the total N<sub>2</sub> volume. 
-							</dd>
-						</dl>
-					</div>
 					<input name="coolDownLosses" id="cool-down-losses" placeholder="0.00" type="number" step="0.01" required/>
 				</div>
 				<div class="field">
@@ -174,7 +160,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Purge Length</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>Meters</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -192,7 +178,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Outside Diameter</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>Millimetres</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -210,7 +196,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Wall Thickness</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>Millimetres</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -227,7 +213,7 @@
 						<dt><b>Name</b></dt>
 						<dd>Maximum Pipe Pressure</dd>
 						<br>
-						<dt><b>Unit</b></dt>
+						<dt><b>Units</b></dt>
 						<dd>kPa</dd>
 						<br>
 						<dt><b>Description</b></dt>
@@ -245,7 +231,7 @@
 							<dt><b>Name</b></dt>
 							<dd>Roughness</dd>
 							<br>
-							<dt><b>Unit</b></dt>
+							<dt><b>Units</b></dt>
 							<dd>inches</dd>
 							<br>
 							<dt><b>Description</b></dt>
@@ -264,7 +250,22 @@
 		</details>
 		<details class="elevation-profile" open>
 			<summary>Elevation Profile</summary>
-			<csv-editor mode="text"></csv-editor>
+			<csv-editor mode="text">
+				<div class="tooltip">
+					<dl>
+						<dt><b>Name</b></dt>
+						<dd>Roughness</dd>
+						<br>
+						<dt><b>Units</b></dt>
+						<dd>Meters</dd>
+						<br>
+						<dt><b>Description</b></dt>
+						<dd>
+							Distance/Elevation
+						</dd>
+					</dl>
+				</div>
+			</csv-editor>
 		</details>
 		<br>
 		<br>
