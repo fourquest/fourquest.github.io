@@ -3,7 +3,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="application-name" content="Injection Calculator"/>
-<meta name="author" content="Chelsie Bajic <chbajic@protonmail.com"/>
+<meta name="author" content="Chelsie Bajic chbajic@protonmail.com"/>
 
 <link href="./images/logo.svg" rel="icon"/>
 <link href="./styles/light.css" rel="stylesheet" media="all and (prefers-color-scheme: light)"/>
@@ -23,33 +23,29 @@
 	</section>
 	<section class="data">
 		<details class="injection-profile-controls" open>
-			<summary>Injection Profile</summary>
+			<summary style="color: red;">Calculated Injection Profile</summary>
 			<div class="buttons">
 				<a class="button" href="#injection-profile">View</a>
 				<a class="button" id="quick-download" href="javascript: void 0">Download</a>
 			</div>
 		</details>
 		<details class="chart-injection-fluid" open>
-			<summary>Injection Fluid</summary>
+			<summary>Injection Parameters</summary>
 			<form id="injection-fluid-form" autocomplete="off">
 				<div class="field">
-					<label for="initial-rate">Initial Rate</label>
+					<label for="initial-rate">Initial N<sub>2</sub> Rate</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
-							<dd>Initial Rate</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<dt><b>Name</b></dt>
+							<dd>Initial Nitrogen Rate</dd>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>Sm<sup>3</sup>/min</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the initial pump rate in standard cubic 
+								meters per minute.
 							</dd>
 						</dl>
 					</div>
@@ -59,20 +55,16 @@
 					<label for="initial-back-pressure">Initial Back Pressure</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
+							<dt><b>Name</b></dt>
 							<dd>Initial Back Pressure</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>kPa</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the inital back pressure of the slug to be 
+								displaced in kilopascals.
 							</dd>
 						</dl>
 					</div>
@@ -82,20 +74,15 @@
 					<label for="pig-friction">Pig Friction</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
+							<dt><b>Name</b></dt>
 							<dd>Pig Friction</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>kPa</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the specified friction of the pig in kilopascals.
 							</dd>
 						</dl>
 					</div>
@@ -105,19 +92,16 @@
 					<label for="specific-gravity">Specific Gravity</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
-							<dd>Specific Gravity</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<dt><b>Name</b></dt>
+							<dd>Specific Gravity of liquid fluid to be displaced</dd>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>unitless</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
+								Enter the specific gravity of the liquid fluid that is to be displaced
+								by the nitorgen injection. 
 
 							</dd>
 						</dl>
@@ -128,20 +112,16 @@
 					<label for="viscosity">Viscosity</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
-							<dd>Viscosity</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<dt><b>Name</b></dt>
+							<dd>Viscosity of liquid fluid to be displaced</dd>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>cSt</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the viscosity of the liquid fluid that is to be displaced during
+								this injection in centistokes.
 							</dd>
 						</dl>
 					</div>
@@ -153,18 +133,13 @@
 						<dl>
 							<dt>Name</dt>
 							<dd>Pig Bypass</dd>
+							<br>
 							<dt>Unit</dt>
-							<dd>Meters</dd>
+							<dd>Percent</dd>
+							<br>
 							<dt>Description</dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the pig bypass losses as a percent of the total N<sub>2</sub> volume. 
 							</dd>
 						</dl>
 					</div>
@@ -174,47 +149,19 @@
 					<label for="cool-down-losses">Cool Down Losses</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
+							<dt><b>Name</b></dt>
 							<dd>Cool Down Losses</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
+							<br> 
+							<dt><b>Unit</b></dt>
+							<dd>Percent</dd>
+							<br>
 							<dt>Description</dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the cool down losses as a percent of the total N<sub>2</sub> volume. 
 							</dd>
 						</dl>
 					</div>
 					<input name="coolDownLosses" id="cool-down-losses" placeholder="0.00%" type="number" step="0.01" required/>
-				</div>
-				<div class="field">
-					<label for="output-distance">Output Distance</label>
-					<div class="tooltip">
-						<dl>
-							<dt>Name</dt>
-							<dd>Output Distance</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
-							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
-							</dd>
-						</dl>
-					</div>
-					<input name="outputDistance" id="output-distance" placeholder="0.00m" type="number" step="0.01" required/>
 				</div>
 				<div class="field">
 					<label for="inject-fluid-submit" hidden>Update</label>
@@ -226,46 +173,18 @@
 			<summary>Pipeline</summary>
 			<form id="pipeline-form" autocomplete="off">
 				<div class="field">
-					<label for="total-length">Total Length</label>
-					<div class="tooltip">
-						<dl>
-							<dt>Name</dt>
-							<dd>Total Length</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
-							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
-							</dd>
-						</dl>
-					</div>
-					<input name="totalLength" id="total-length" placeholder="0.00m" type="number" step="0.01" required/>
-				</div>
-				<div class="field">
 					<label for="purge-length">Purge Length</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
+							<dt><b>Name</b></dt>
 							<dd>Purge Length</dd>
-							<dt>Unit</dt>
+							<br>
+							<dt><b>Unit</b></dt>
 							<dd>Meters</dd>
-							<dt>Description</dt>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the length of pipeline to be purged in meters. 
 							</dd>
 						</dl>
 					</div>
@@ -275,20 +194,15 @@
 					<label for="outside-diameter">Outside Diameter</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
-							<dd>Total Length</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<dt><b>Name</b></dt>
+							<dd>Outside Diameter</dd>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>Millimetres</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the outside diameter of the pipeline in millimetres. 
 							</dd>
 						</dl>
 					</div>
@@ -298,20 +212,15 @@
 					<label for="wall-thickness">Wall Thickness</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
-							<dd>Total Length</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<dt><b>Name</b></dt>
+							<dd>Wall Thickness</dd>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>Millimetres</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the wallthickness of the pipeline in millimetres. 
 							</dd>
 						</dl>
 					</div>
@@ -320,43 +229,33 @@
 				<div class="field">
 					<label for="maximum-pipe-pressure">Maximum Pipe Pressure</label><div class="tooltip">
 					<dl>
-						<dt>Name</dt>
-						<dd>Total Length</dd>
-						<dt>Unit</dt>
-						<dd>Meters</dd>
-						<dt>Description</dt>
+						<dt><b>Name</b></dt>
+						<dd>Maximum Pipe Pressure</dd>
+						<br>
+						<dt><b>Unit</b></dt>
+						<dd>kPa</dd>
+						<br>
+						<dt><b>Description</b></dt>
 						<dd>
-
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							onec vitae lectus ut orci aliquet bibendum. Pellentesque
-							habitant morbi tristique senectus et netus et malesuada
-							fames ac turpis egestas. Aenean vulputate vitae massa vel
-							vulputate. Nullam eu suscipit libero. Ut et magna
-							sollicitudin nisl gravida dapibus sed sed odio.
-
+							Enter the maximum allowable pipe pressure in kilopascals.
 						</dd>
 					</dl>
 				</div>
 					<input name="maximumPipePressure" id="maximum-pipe-pressure" placeholder="0.00m" type="number" step="0.01" required/>
 				</div>
 				<div class="field">
-					<label for="roughness-factor">Roughness Factor</label>
+					<label for="roughness-factor">Roughness</label>
 					<div class="tooltip">
 						<dl>
-							<dt>Name</dt>
-							<dd>Roughness Factor</dd>
-							<dt>Unit</dt>
-							<dd>Meters</dd>
-							<dt>Description</dt>
+							<dt><b>Name</b></dt>
+							<dd>Roughness</dd>
+							<br>
+							<dt><b>Unit</b></dt>
+							<dd>inches</dd>
+							<br>
+							<dt><b>Description</b></dt>
 							<dd>
-
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								onec vitae lectus ut orci aliquet bibendum. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada
-								fames ac turpis egestas. Aenean vulputate vitae massa vel
-								vulputate. Nullam eu suscipit libero. Ut et magna
-								sollicitudin nisl gravida dapibus sed sed odio.
-
+								Enter the pipe roughness in inches. 
 							</dd>
 						</dl>
 					</div>

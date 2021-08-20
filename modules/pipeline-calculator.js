@@ -7,12 +7,10 @@
  * @property {number} viscosity
  * @property {number} pigBypass
  * @property {number} coolDownLosses
- * @property {number} outputDistance
  */
 
 /**
  * @typedef PipelineDescriptor
- * @property {number} totalLength
  * @property {number} purgeLength
  * @property {number} outsideDiameter
  * @property {number} wallThickness
@@ -82,6 +80,9 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	const cushion = 10;
 	const cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
 	const cushion_n_m3 = cushion + area + cushionInitialBar;
+
+
+	// If successful change element "Calculated injection profile" to green color
 
 	return [
 		{	
