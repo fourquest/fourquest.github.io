@@ -26,7 +26,7 @@
 		<br>
 		<details class="chart-injection-fluid" open>
 			<summary>Injection Parameters</summary>
-			<form id="injection-fluid-form" autocomplete="off">
+			<form id="injection-fluid-form" autocomplete="off" class="form-backgrounds">
 				<div class="field">
 					<label for="initial-rate">Initial N<sub>2</sub> Rate</label>
 					<div class="tooltip">
@@ -166,7 +166,7 @@
 		</details>
 		<details class="chart-pipeline" open>
 			<summary>Pipeline</summary>
-			<form id="pipeline-form" autocomplete="off">
+			<form id="pipeline-form" autocomplete="off" class="form-backgrounds">
 				<div class="field">
 					<label for="purge-length">Purge Length</label>
 					<div class="tooltip">
@@ -264,24 +264,31 @@
 		</details>
 		<details class="elevation-profile" open>
 			<summary>Elevation Profile</summary>
-			<div class="help-tooltip">Help
-				<span class="tooltiptext">Elevation profile must be uploaded as a csv file with distance parameter in the first column
-					and elevation parameter in the second column, both in meters. <br><br> File must end with .csv
-				</span>
+			<div class="form-backgrounds">
+				<div class="help-tooltip">Help
+					<span class="tooltiptext">Elevation profile must be uploaded as a csv file with distance parameter in the first column
+						and elevation parameter in the second column, both in meters.
+						<br><br> 
+						File must end with .csv
+						<br><br> 
+						<img class="help-tooltip-images" src="./images/excel_sample.png"> 
+						<img class="help-tooltip-images" src="images/CSV_sample.png">
+						<br>
+					</span>
+				</div>
+				<csv-editor mode="text"></csv-editor>
 			</div>
-			<br>
-			<br>
-			<csv-editor mode="text"></csv-editor>
 		</details>
-		<br>
 		<br>
 		<details class="injection-profile-controls" open>
 			<summary style="color: red;">Calculated Injection Profile</summary>
-			<div class="buttons">
-				<a class="button" id="calculate-button" href="javascript: void 0">Calculate</a>
-				<a class="button" href="#injection-profile">View</a>
-				<a class="button" id="quick-download" href="javascript: void 0">Download</a>
-				<a class="button" id="clear-button" href="javascript: void 0">Clear</a>
+			<div class="form-backgrounds">
+				<div class="buttons">
+					<a class="button" id="calculate-button" href="javascript: void 0">Calculate</a>
+					<a class="button" href="#injection-profile">View</a>
+					<a class="button" id="quick-download" href="javascript: void 0">Download</a>
+					<a class="button" id="clear-button" href="javascript: void 0">Clear</a>
+				</div>
 			</div>
 		</details>
 	</section>
