@@ -11,7 +11,7 @@ const pressuresChart = document.getElementById("pressures-chart");
 const clearButton = document.getElementById("clear-button");
 
 clearButton.addEventListener("click", function(){
-	clearButton.innerHTML = "Test";
+	location.reload();
 });
 
 
