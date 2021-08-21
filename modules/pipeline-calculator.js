@@ -143,7 +143,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let outputArrayOfObjects = [];
 
 	// Declare the output objects (each object represents a row in the output table).
-	let ouputObject = 
+	let outputObject = 
 					{	
 						time:0, 
 						distance:0, 
@@ -173,7 +173,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		outputObject.displacementRate = displacementRate;
 		outputObject.displacementVolume = displacementVolume; 
 		
-	
+		outputArrayOfObjects.push(outputObject);
 	}
 
 	// If successful change element "Calculated injection profile" to green color
