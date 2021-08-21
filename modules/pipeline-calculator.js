@@ -11,8 +11,8 @@
 
 /**
  * @typedef PipelineDescriptor
- * @property {number} purgeLength
  * @property {number} totalLength
+ * @property {number} purgeLength
  * @property {number} outsideDiameter
  * @property {number} wallThickness
  * @property {number} maximumPipePressure
@@ -54,9 +54,6 @@
  */
 export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
-	// Calculate pressure limit.
-	let pressureLimit = injectionFluid.initialBackPressure * 1000;
-
 	// Convert pig friction from kPa to Pa.
 	let pigFriction = injectionFluid.pigFriction * 1000;
 
@@ -90,99 +87,81 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// Calculare free volume per kilometer.
 	let freeVolumePerKm = area * 1000;
 
-
+	// Calculare mass of slug (mass of fluid being displaced).
 	let mass = slugVolume * rho;
+
+	// Calculate pressure limit.
+	let pressureLimit = injectionFluid.initialBackPressure * 1000;
+
+	// Calculare pinit (pressure initial?)
 	let pinit = pressureLimit;
+
+	// Calculare back pressure.
 	let backPressure = pressureLimit;
+
+	// Calculare slug length (meters).
 	let slugLength = slugVolume / area;
+
+	// Time is initially zero.
 	let tim = 0;
+
+	// Slug back pressure is initially 0 becuase slug initially fills line.
 	let slugBackPressure = 0;
+
+	//Comment from original program: elevationFrontOfLine is always at the far end of pipeline.
 	let elevationBackOfLine = elevationProfile[0][1];
 	let elevationFrontOfLine = elevationProfile[elevationProfile.length-1][1];
+
+	// Calculate hydback (hydrostatic backpressure)
+	// Comment from original program: get the hydrostatic at the back of the slug,
+	// hydback is +ve when back of slug is lower than front.
 	let hydback = Math.abs(rho * 9.81 * (elevationFrontOfLine - elevationBackOfLine));
+
+	// Comment from original program: initial pump rate is specified,
+	// Assume it is barely moving(vel=initvel)
+	// and that the injection pressure: 
+    // Pin = backpressure + hydrostatic + pig friction pressure + flow friction at initial velocity.
 	let initialVelocity = 0.01;
 	let velocity = initialVelocity;
 	let previousVelocity = velocity;
 	let newVelocity = velocity;
 	let nm3Pumped = 0;
+
+    // Comment from original program: Cushion adsorbs the pressure spike in the first timestamp. 
+    // (Cushion is likely a factor of safety).
 	let cushion = 10;
 	let cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
 	let cushion_n_m3 = cushion + area + cushionInitialBar;
 
+	// Declare output array
+	let output = [];
+
+	let injectionVelocity = 0; 
+	let injectionPressure = 0; 
+	let injectionVolume = 0; 
+	let displacementRate = 0;
+	let displacementVolume = 0; 
+
+	
+
+	// Perform nitorgen injection calculations for each elevation profile data point starting here
+	for(let i = 0; i < elevationProfile.length; i++){
+
+		let distance = elevationProfile[i][0];
+		let elevation = elevationProfile[i][1];
+		
+		output.push(tim);
+		output.push(distance);
+		output.push(elevation);
+		output.push(injectionVelocity);
+		output.push(injectionPressure);
+		output.push(injectionVolume)
+		output.push(displacementRate);
+		output.push(displacementVolume);
+	}
 
 	// If successful change element "Calculated injection profile" to green color
 
-	return [
-		{	
-			"time": 0,
-			"distance": 1,
-			"elevation": 606,
-			"injectionVelocity": 0,
-			"injectionPressure": 686,
-			"injectionVolume": 565,
-			"displacementRate": 35,
-			"displacementVolume": 261.7,
-		},
-		{
-			"time": 1.1,
-			"distance": 2,
-			"elevation": 687,
-			"injectionVelocity": 5.93,
-			"injectionPressure": 1858,
-			"injectionVolume": 9921,
-			"displacementRate": 25.61,
-			"displacementVolume": 520.68,
-		},
-		{
-			"time": 1.2,
-			"distance": 3,
-			"elevation": 689,
-			"injectionVelocity": 6.25,
-			"injectionPressure": 1799,
-			"injectionVolume": 14671,
-			"displacementRate": 26.97,
-			"displacementVolume": 777.62,
-		},
-		{
-			"time": 1.3,
-			"distance": 4,
-			"elevation": 656,
-			"injectionVelocity": 6.36,
-			"injectionPressure": 1782,
-			"injectionVolume": 19338,
-			"displacementRate": 27.46,
-			"displacementVolume": 1039.13,
-		},
-		{
-			"time": 1.4,
-			"distance": 5,
-			"elevation": 687,
-			"injectionVelocity": 6.37,
-			"injectionPressure": 1757,
-			"injectionVolume": 24025,
-			"displacementRate": 27.46,
-			"displacementVolume": 1296.94,
-		},
-		{
-			"time": 1.5,
-			"distance": 6,
-			"elevation": 678,
-			"injectionVelocity": 6.36,
-			"injectionPressure": 1758,
-			"injectionVolume": 28775,
-			"displacementRate": 0,
-			"displacementVolume": 1555.21,
-		},
-		{
-			"time": 1.6,
-			"distance": 7,
-			"elevation": 567,
-			"injectionVelocity": 6.44,
-			"injectionPressure": 1759,
-			"injectionVolume": 37775,
-			"displacementRate": 29.50,
-			"displacementVolume": 1813.73,
-		},
-	];
+	return output;
 }
 
