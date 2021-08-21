@@ -283,7 +283,6 @@ export function deserialize(text) {
 				let largeNumberHolder = "";
 				let quoteSwitch = false;
 				for(let n = 0; n < line.length - 1; n++){
-					console.log(line.charAt(n));
 					if(line.charAt(n) === '"'){
 						if(quoteSwitch == false){
 							quoteSwitch = true; 
