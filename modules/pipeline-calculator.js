@@ -157,11 +157,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 						time: tim, 
 						distance: elevationProfile[i][0], 
 						elevation: elevationProfile[i][1], 
-						injectionVelocity:0, 
-						injectionPressure:0, 
-						injectionVolume:0, 
-						displacementRate:0,
-						displacementVolume:0,	
+						injectionVelocity: injectionVelocity, 
+						injectionPressure: injectionPressure, 
+						injectionVolume: injectionVolume, 
+						displacementRate: displacementRate,
+						displacementVolume: displacementVolume,	
 					};
 		
 		outputArrayOfObjects.push(outputObject);
