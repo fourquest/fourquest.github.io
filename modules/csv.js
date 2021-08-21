@@ -277,25 +277,25 @@ export function deserialize(text) {
 					break;
 				}
 			}
-
+			console.log("new ");
 			if(largeNumber == true){
 				let holder = [];
 				let largeNumberHolder = "";
 				let quoteSwitch = false;
 				for(let n = 0; n < line.length - 1; n++){
-					console.log("charAt: ");
 					console.log(line.charAt(n));
 					if(line.charAt(n) === '"'){
 						if(quoteSwitch == false){
 							quoteSwitch = true; 
 							continue;
 						}
-						
 					}
+
+
 					if(line.charAt(n) != '"' && quoteSwitch == true && line.charAt(n) != ','){
-						largeNumberHolder.concat(n);
-						console.log("large number holder is: ");
-						console.log(largeNumberHolder);
+						largeNumberHolder.concat(line.charAt(n));
+						 console.log("large number holder is: ");
+						 console.log(largeNumberHolder);
 					}
 
 					if(line.charAt(n) === '"'){
@@ -303,7 +303,7 @@ export function deserialize(text) {
 					}
 
 					if(line.charAt(n) != '"' && quoteSwitch == false){
-						largeNumberHolder.concat(n);
+						largeNumberHolder.concat(line.charAt(n));
 						//console.log(largeNumberHolder);
 					}
 
