@@ -294,8 +294,6 @@ export function deserialize(text) {
 
 					if(line.charAt(n) != '"' && quoteSwitch == true && line.charAt(n) != ','){
 						largeNumberHolder = largeNumberHolder.concat(line.charAt(n));
-						 console.log("large number holder is: ");
-						 console.log(largeNumberHolder);
 					}
 
 					if(line.charAt(n) === '"'){
@@ -304,20 +302,14 @@ export function deserialize(text) {
 
 					if(line.charAt(n) != '"' && quoteSwitch == false && line.charAt(n) != ","){
 						largeNumberHolder = largeNumberHolder.concat(line.charAt(n));
-						console.log("large number holder is 2: ");
-						console.log(largeNumberHolder);
-						
 					}
 
+					console.log(line.length-1);
+					console.log(n)
 					if((line.charAt(n) === ',' && quoteSwitch == false) || (n == (line.length -1))){
 						holder.push(largeNumberHolder);
 						largeNumberHolder ="";
-						console.log("holder is 1: ");
-						console.log(holder);
 					}
-
-					
-					
 				} 
 				data.content.push(holder); 
 			} else {
