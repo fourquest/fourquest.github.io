@@ -168,6 +168,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	}
 
 	// If successful change element "Calculated injection profile" to green color
+	document.getElementById("calculated-profile-header").style.color = "green";
 
 	return outputArrayOfObjects;
 }
