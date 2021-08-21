@@ -144,22 +144,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
 
-	// Declare the output objects (each object represents a row in the output table).
-	let outputObject = 
-					{	
-						time:0, 
-						distance:0, 
-						elevation:0, 
-						injectionVelocity:0, 
-						injectionPressure:0, 
-						injectionVolume:0, 
-						displacementRate:0,
-						displacementVolume:0,	
-					};
-
-		
-					
-
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
 		console.log(elevationProfile[i][0]);
@@ -167,15 +151,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		tim++;
 		
-		// outputObject.time = tim;
-		// outputObject.distance = elevationProfile[i][0];
-		// outputObject.elevation = elevationProfile[i][1]; 
-		// outputObject.injectionVelocity = injectionVelocity;
-		// outputObject.injectionPressure = injectionPressure;
-		// outputObject.injectionVolume = injectionVolume;
-		// outputObject.displacementRate = displacementRate;
-		// outputObject.displacementVolume = displacementVolume; 
-
+		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
 					{	
 						time: tim, 
