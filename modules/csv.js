@@ -278,7 +278,6 @@ export function deserialize(text) {
 				}
 			}
 
-			console.log("new ");
 			if(largeNumber == true){
 				let holder = [];
 				let largeNumberHolder = "";
@@ -303,10 +302,8 @@ export function deserialize(text) {
 					if(line.charAt(n) != '"' && quoteSwitch == false && line.charAt(n) != ","){
 						largeNumberHolder = largeNumberHolder.concat(line.charAt(n));
 					}
-
-					console.log(line.length-1);
-					console.log(n)
-					if((line.charAt(n) === ',' && quoteSwitch == false) || (n == (line.length -1))){
+				console.log("NEW");
+					if((line.charAt(n) === ',' && quoteSwitch == false) || (n == (line.length -2))){
 						holder.push(largeNumberHolder);
 						largeNumberHolder ="";
 					}
