@@ -310,6 +310,7 @@ export function deserialize(text) {
 
 					if(line.charAt(n) === ',' && quoteSwitch == false){
 						holder.push(largeNumberHolder);
+						largeNumberHolder ="";
 					}
 					
 				} 
