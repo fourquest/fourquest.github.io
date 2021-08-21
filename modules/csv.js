@@ -290,7 +290,6 @@ export function deserialize(text) {
 						}
 					}
 
-
 					if(line.charAt(n) != '"' && quoteSwitch == true && line.charAt(n) != ','){
 						largeNumberHolder = largeNumberHolder.concat(line.charAt(n));
 					}
