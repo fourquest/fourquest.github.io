@@ -157,16 +157,16 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 						displacementVolume:0,	
 					};
 
-					console.log(elevationProfile);
+		
 					
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
-	// for(let i = 0; i < elevationProfile.length - 1; i++){
+	for(let i = 0; i < elevationProfile.length - 1; i++){
 	// 	// console.log(elevationProfile[i][0]);
 	// 	// console.log(elevationProfile[i][1]);
 
 		
-
+	console.log(parseFloat(elevationProfile[i][1]));
 		
 		
 		
@@ -180,7 +180,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// 	// outputObject.displacementVolume = displacementVolume; 
 		
 	// 	// outputArrayOfObjects.push(outputObject);
-	// }
+	}
 
 	// If successful change element "Calculated injection profile" to green color
 	
