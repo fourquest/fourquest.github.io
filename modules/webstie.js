@@ -32,20 +32,20 @@ function onSubmit(event) {
 				const data = {
 					"headers": [
 						// System
-						"Time",
+						"Purge Time",
 
 						// Pipeline
 						"Distance (m)",
 						"Elevation (m)",
 
 						// Injection
-						"Pig Speed (m/s)",
-						"N2 Pressure",
-						"N2 Volume",
+						"Pig Speed (km/hr)",
+						"N2 Pressure (kPa)",
+						"N2 Total Volume (m3)",
 
 						// Displacement
-						"Outlet Rate",
-						"Purge Volume",
+						"Outlet Fluid Rate (m3/min)",
+						"Total Fluid Displaced (m3)",
 					],
 					"content": profile.map(record => [
 						record.time,
