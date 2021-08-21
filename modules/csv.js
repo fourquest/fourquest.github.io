@@ -256,14 +256,17 @@ CsvEditorElement.observedAttributes = ["mode", "close"];
  */
 export function deserialize(text) {
 	const data = {"headers": [], "content": []};
+	let i = 0;
 
 	for (let line of text.split("\n")) {
-		if (line.charAt(0) === '"' && parseFloat(line.charAt(1)) == NaN) {
+		if (line.charAt(0) === '"' && parseFloat(line.charAt(1)) == NaN && i == 0) {
+			i++;
 			if (data.headers.length === 0)
 				data.headers = line
 					.split(",")
 					.map(item => item.replaceAll('"',''));
 		} else {
+			i++; 
 			let items = line.split(",");
 			if (items.length > 1 || items[0] !== "")
 				data.content.push(items);
