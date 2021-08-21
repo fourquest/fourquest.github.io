@@ -308,17 +308,10 @@ export function deserialize(text) {
 						
 					}
 
-					if(line.charAt(n) === ',' && quoteSwitch == false){
+					if((line.charAt(n) === ',' && quoteSwitch == false) || (n == (line.length - 1)){
 						holder.push(largeNumberHolder);
 						largeNumberHolder ="";
 						console.log("holder is 1: ");
-						console.log(holder);
-					}
-
-					if(n == (line.length -1)){
-						holder.push(largeNumberHolder);
-						largeNumberHolder = "";
-						console.log("holder is 2: ");
 						console.log(holder);
 					}
 					
