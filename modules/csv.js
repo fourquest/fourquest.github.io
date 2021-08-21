@@ -283,6 +283,8 @@ export function deserialize(text) {
 				let largeNumberHolder = "";
 				let quoteSwitch = false;
 				for(let n = 0; n < line.length - 1; n++){
+					console.log("charAt: ");
+					console.log(line.charAt(n));
 					if(line.charAt(n) === '"'){
 						if(quoteSwitch == false){
 							quoteSwitch = true; 
@@ -292,6 +294,7 @@ export function deserialize(text) {
 					}
 					if(line.charAt(n) != '"' && quoteSwitch == true && line.charAt(n) != ','){
 						largeNumberHolder.concat(n);
+						console.log("large number holder is: ");
 						console.log(largeNumberHolder);
 					}
 
