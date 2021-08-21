@@ -133,7 +133,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
 	let cushion_n_m3 = cushion + area + cushionInitialBar;
 
-	let injectionVelocity = 0; 
 	let injectionPressure = 0; 
 	let injectionVolume = 0; 
 	let displacementRate = 0;
@@ -247,17 +246,19 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Update slug length for getfric
 		slugLength = slugVolume / area;
 
+		let hr = tim/60;
+
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
 					{	
-						time: tim, 
+						time: hr, 
 						distance: elevationProfile[i][0], 
 						elevation: elevationProfile[i][1], 
-						injectionVelocity: injectionVelocity, 
-						injectionPressure: injectionPressure, 
-						injectionVolume: injectionVolume, 
-						displacementRate: displacementRate,
-						displacementVolume: displacementVolume,	
+						injectionVelocity: velocity * 3.6, 
+						injectionPressure: (((injectionPressure)/1000) - 101), 
+						injectionVolume: nm3Pumped, 
+						displacementRate:  ((velocity * area) * 60),
+						displacementVolume: ((slugBackPressure / 1000) * freeVolumePerKm),
 					};
 		
 		outputArrayOfObjects.push(outputObject);
