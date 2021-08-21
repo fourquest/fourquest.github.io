@@ -137,11 +137,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let injectionPressure = 0; 
 	let injectionVolume = 0; 
 	let displacementRate = 0;
-	let displacementVolume = 0; 
-	let distance = 0;
-	let elevation = 0; 
-	let row = 0; 
-	let previousVelocity = 0;
+	let displacementVolume = 0;   
 	let newVelocity = 0; 
 	let dt = 0; 
 	let main_dt = 0; 
@@ -157,7 +153,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
 		
-		rowNumber++; 
 
 		if(slugBackPressure < 10){
             dt = 0.1 * main_dt; 
@@ -250,7 +245,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		// Update slug length for getfric
 		slugLength = slugVolume / area;
-		
+
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
 					{	
