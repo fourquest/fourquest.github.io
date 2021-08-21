@@ -301,7 +301,7 @@ export function deserialize(text) {
 						quoteSwitch = false;
 					}
 
-					if(line.charAt(n) != '"' && quoteSwitch == false){
+					if(line.charAt(n) != '"' && quoteSwitch == false && line.charAt(n) != ","){
 						largeNumberHolder = largeNumberHolder.concat(line.charAt(n));
 						console.log("large number holder is2: ");
 						console.log(largeNumberHolder);
@@ -311,6 +311,8 @@ export function deserialize(text) {
 					if(line.charAt(n) === ',' && quoteSwitch == false){
 						holder.push(largeNumberHolder);
 						largeNumberHolder ="";
+						console.log("holder is: ");
+						console.log(holder);
 					}
 					
 				} 
