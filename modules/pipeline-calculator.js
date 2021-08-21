@@ -167,14 +167,26 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		tim++;
 		
-		outputObject.time = tim;
-		outputObject.distance = elevationProfile[i][0];
-		outputObject.elevation = elevationProfile[i][1]; 
-		outputObject.injectionVelocity = injectionVelocity;
-		outputObject.injectionPressure = injectionPressure;
-		outputObject.injectionVolume = injectionVolume;
-		outputObject.displacementRate = displacementRate;
-		outputObject.displacementVolume = displacementVolume; 
+		// outputObject.time = tim;
+		// outputObject.distance = elevationProfile[i][0];
+		// outputObject.elevation = elevationProfile[i][1]; 
+		// outputObject.injectionVelocity = injectionVelocity;
+		// outputObject.injectionPressure = injectionPressure;
+		// outputObject.injectionVolume = injectionVolume;
+		// outputObject.displacementRate = displacementRate;
+		// outputObject.displacementVolume = displacementVolume; 
+
+		let outputObject = 
+					{	
+						time: tim, 
+						distance: elevationProfile[i][0], 
+						elevation: elevationProfile[i][1], 
+						injectionVelocity:0, 
+						injectionPressure:0, 
+						injectionVolume:0, 
+						displacementRate:0,
+						displacementVolume:0,	
+					};
 		
 		outputArrayOfObjects.push(outputObject);
 	}
