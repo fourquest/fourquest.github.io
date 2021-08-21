@@ -255,13 +255,18 @@ CsvEditorElement.observedAttributes = ["mode", "close"];
  * @return {CsvDescriptor}
  */
 export function deserialize(text) {
-	const data = {"headers": ["Distance", "Elevation"], "content": []};
+	const data = {"headers": [], "content": []};
 
 	for (let line of text.split("\n")) {
+		if (line.charAt(0) === '"') {
+			if (data.headers.length === 0)
+				data.headers = line
+					.split(",")
+					.map(item => item.replaceAll('"',''));
+		} else {
 			let items = line.split(",");
-			if (items.length > 1 || items[0] !== ""){
+			if (items.length > 1 || items[0] !== "")
 				data.content.push(items);
-			}	
 		}
 	}
 	return data;
