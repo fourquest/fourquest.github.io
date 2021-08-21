@@ -167,7 +167,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		if(endFlag = 1){
             dt = dt / 10;
-            cavdisable = rowNumber; 
+            cavdisable = i + 1; 
         }
 
 		// Call the function that looks for cavitation. 
