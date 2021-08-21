@@ -93,6 +93,7 @@ body {
 	visibility: visible;
 	opacity: 1;
 	cursor: help;
+	border: solid 1px var(--primary-color);
   }
 
   .help-tooltip-images{
