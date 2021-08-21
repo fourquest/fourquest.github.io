@@ -161,31 +161,31 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 					
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
-	for(let i = 0; i < elevationProfile.length - 1; i++){
-		// console.log(elevationProfile[i][0]);
-		// console.log(elevationProfile[i][1]);
+	// for(let i = 0; i < elevationProfile.length - 1; i++){
+	// 	// console.log(elevationProfile[i][0]);
+	// 	// console.log(elevationProfile[i][1]);
 
 		
 
 		
 		
 		
-		// outputObject.time = tim;
-		// outputObject.distance = elevationProfile[i][0];
-		// outputObject.elevation = elevationProfile[i][1]; 
-		// outputObject.injectionVelocity = injectionVelocity;
-		// outputObject.injectionPressure = injectionPressure;
-		// outputObject.injectionVolume = injectionVolume;
-		// outputObject.displacementRate = displacementRate;
-		// outputObject.displacementVolume = displacementVolume; 
+	// 	// outputObject.time = tim;
+	// 	// outputObject.distance = elevationProfile[i][0];
+	// 	// outputObject.elevation = elevationProfile[i][1]; 
+	// 	// outputObject.injectionVelocity = injectionVelocity;
+	// 	// outputObject.injectionPressure = injectionPressure;
+	// 	// outputObject.injectionVolume = injectionVolume;
+	// 	// outputObject.displacementRate = displacementRate;
+	// 	// outputObject.displacementVolume = displacementVolume; 
 		
-		// outputArrayOfObjects.push(outputObject);
-	}
+	// 	// outputArrayOfObjects.push(outputObject);
+	// }
 
 	// If successful change element "Calculated injection profile" to green color
 	
 	//console.log(outputArrayOfObjects);
 
-	return outputArrayOfObjects;
+	return 10;
 }
 
