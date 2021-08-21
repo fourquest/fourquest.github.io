@@ -165,7 +165,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		let thisElevation = elevationProfile[i][1];
 		
 		outputObject.time = tim;
-		ouputObject.distance = thisDistance;
+		outputObject.distance = thisDistance;
 		outputObject.elevation = thisElevation; 
 		outputObject.injectionVelocity = injectionVelocity;
 		outputObject.injectionPressure = injectionPressure;
