@@ -204,7 +204,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
 
 		// Gets flowdp, the delta P across the fluid slug, using sluglen.
-		getFriction(flow_dp);
+		getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho);
 
 		// Solve for new velocity.
 		if(backPressure >= pressureLimit){
@@ -223,7 +223,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
         slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback; 
         
 
-        getFriction(flow_dp);
+        getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho);
 
         if(backPressure >= pressureLimit){
             newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - (parseFloat(pigFriction))));
@@ -276,7 +276,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
  *  calculates flowdp &  friction factor for Darcy derivation  &  reynolds number
  * 
  */
- function getFriction(flow_dp){
+ function getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho){
     let re;
     let terma;
     let termb;
