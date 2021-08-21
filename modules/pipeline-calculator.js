@@ -64,7 +64,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	insideDiameter = insideDiameter / 1000; 
 
 	// Convert initial nitrogen injection rate to S.I. (Nm3/sec).
-	let nitrogenInjectionM3PerSec = injectionFluid.initialRate / 60;
+	let pump_nm3s = injectionFluid.initialRate / 60;
 
 	// Calculate fluid density (rho, kg/m3).
 	let rho = injectionFluid.specificGravity * 1000;
