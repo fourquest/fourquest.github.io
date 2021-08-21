@@ -258,7 +258,7 @@ export function deserialize(text) {
 	const data = {"headers": [], "content": []};
 
 	for (let line of text.split("\n")) {
-		if (line.charAt(0) === '"') {
+		if (line.charAt(0) === '"' && parseFloat(line.charAt(1)) == NaN) {
 			if (data.headers.length === 0)
 				data.headers = line
 					.split(",")
