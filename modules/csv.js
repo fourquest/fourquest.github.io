@@ -257,6 +257,7 @@ CsvEditorElement.observedAttributes = ["mode", "close"];
 export function deserialize(text) {
 	const data = {"headers": [], "content": []};
 	let i = 0;
+	let largeNumber = false; 
 
 	for (let line of text.split("\n")) {
 		if (line.charAt(0) === '"' && parseFloat(line.charAt(1)) == NaN && i == 0) {
@@ -267,9 +268,43 @@ export function deserialize(text) {
 					.map(item => item.replaceAll('"',''));
 		} else {
 			i++; 
-			let items = line.split(",");
-			if (items.length > 1 || items[0] !== "")
-				data.content.push(items);
+			// Detect if the record contains a number larger than 1000 represented as a string
+			// with a comma in it. 
+			for(let m = 0; m < line.length(); m++){
+				if(line.charAt(m) == '"'){
+					largeNumber = true; 
+					break;
+				}
+			}
+
+			if(largeNumber == true){
+				let holder = [];
+				let largeNumberHolder = "";
+				let quoteSwitch = false;
+				for(let n = 0; n < line.length(); n++){
+					if(line.charAt(n) == '"'){
+						if(quoteSwitch == false){
+							quoteSwitch = true; 
+						}
+						if(quoteSwitch == true){
+							quoteSwitch = false; 
+						}
+					}
+					if(line.charAt(n) != '"' && quoteSwitch == true && line.charAt(n) != ','){
+						largeNumberHolder.concat(n);
+					}
+
+					if(line.charAt(n) == ',' && quoteSwitch == false){
+						holder.push(largeNumberHolder);
+					}
+				} 
+				data.content.push(holder); 
+			} else {
+				let items = line.split(",");
+				if (items.length > 1 || items[0] !== ""){
+					data.content.push(items);
+				}
+			}	
 		}
 	}
 	return data;
