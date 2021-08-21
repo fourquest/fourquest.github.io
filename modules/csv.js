@@ -268,10 +268,11 @@ export function deserialize(text) {
 					.map(item => item.replaceAll('"',''));
 		} else {
 			i++; 
+			largeNumber = false;
 			// Detect if the record contains a number larger than 1000 represented as a string
 			// with a comma in it. 
 			for(let m = 0; m < line.length; m++){
-				console.log("line length: " + line.length);
+				console.log("line length: " + line.length - 1);
 				if(line.charAt(m) == '"'){
 					largeNumber = true; 
 					break;
@@ -282,7 +283,7 @@ export function deserialize(text) {
 				let holder = [];
 				let largeNumberHolder = "";
 				let quoteSwitch = false;
-				for(let n = 0; n < line.length; n++){
+				for(let n = 0; n < line.length - 1; n++){
 					if(line.charAt(n) == '"'){
 						if(quoteSwitch == false){
 							quoteSwitch = true; 
@@ -298,9 +299,14 @@ export function deserialize(text) {
 						quoteSwitch = false;
 					}
 
+					if(line.charAt(n) != '"' && quoteSwitch == false){
+						largeNumberHolder.concat(n);
+					}
+
 					if(line.charAt(n) == ',' && quoteSwitch == false){
 						holder.push(largeNumberHolder);
 					}
+					
 				} 
 				data.content.push(holder); 
 			} else {
