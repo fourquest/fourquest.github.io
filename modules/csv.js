@@ -256,12 +256,14 @@ CsvEditorElement.observedAttributes = ["mode", "close"];
  */
 export function deserialize(text) {
 	const data = {"headers": ["Distance", "Elevation"], "content": []};
-	let items = line.split(",");
 
-	if (items.length > 1 || items[0] !== ""){
-		data.content.push(items);
+	for (let line of text.split("\n")) {
+			let items = line.split(",");
+			if (items.length > 1 || items[0] !== ""){
+				data.content.push(items);
+			}	
+		}
 	}
-	
 	return data;
 }
 
