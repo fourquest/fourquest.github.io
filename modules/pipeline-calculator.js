@@ -140,16 +140,116 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let displacementVolume = 0; 
 	let distance = 0;
 	let elevation = 0; 
+	let row = 0; 
+	let previousVelocity = 0;
+	let newVelocity = 0; 
+	let dt = 0; 
+	let main_dt = 0; 
+	let endFlag = 0; 
+	let cavdisable = 0; 
+	let cavFlag = 0; 
+	let projhydback = 0; 
+	let flow_dp = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
-		console.log(elevationProfile[i][0]);
-		console.log(elevationProfile[i][1]);
+		
+		rowNumber++; 
 
-		tim++;
+		if(slugBackPressure < 10){
+            dt = 0.1 * main_dt; 
+        } else if(velocity > 0) {
+            if( !(Math.abs(previousVelocity/newVelocity) > 1.01) ){
+                dt = 1.5 * dt; 
+            }
+        }
+
+		if(dt > main_dt){
+            dt = main_dt; 
+        }
+
+		if(endFlag = 1){
+            dt = dt / 10;
+            cavdisable = rowNumber; 
+        }
+
+		// Call the function that looks for cavitation. 
+       // cavitation(rowNumber, cavdisable, pipeProfileRecord.Elevation, slugBackPressure, numberOfDataPoints);
+        
+	   if(cavFlag = 1){
+		/**
+		 * 
+		 * Add some kind of display about cavitation here! 
+		 * 
+		 */
+		//return;
+		}
+
+
+		if(tim > 0){
+            injectionPressure = (100000 / area) * (cushion_n_m3 + nm3Pumped + (pump_nm3s * dt)) / (cushion + slugBackPressure + (velocity * dt));
+            if(backPressure < pressureLimit){
+                velocity = 0; 
+                backPressure = injectionPressure - hydback - pigFriction;
+            } else {
+                backpressure = pressureLimit;
+            }
+        }
+
+		if(tim = 0){
+            injectionPressure = backPressure + hydback + pigFriction + flow_dp;
+        }
+
+        projslugback = slugBackPressure + (velocity * dt);
+		projhydback = rho * 9.81 * (elevationProfile[0][1] - elevationProfile[elevationProfile.length - 1][1]);
+		
+		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
+
+		// Gets flowdp, the delta P across the fluid slug, using sluglen.
+		getFriction(flow_dp);
+
+		// Solve for new velocity.
+		if(backPressure >= pressureLimit){
+			newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - (parseFloat(pigFriction))));  
+			if(Math.abs(velocity) > 0){
+				if(Math.abs(newVelocity / velocity) > 1.01 || Math.abs(newVelocity / velocity) < 0.99){
+					dt = dt / 2; 
+					newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - (parseFloat(pigFriction))));
+				}
+			}
+		} else {
+			newVelocity = 0; 
+		}
+
+        projslugback = slugBackPressure + (newVelocity * dt);
+        slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback; 
+        
+
+        getFriction(flow_dp);
+
+        if(backPressure >= pressureLimit){
+            newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - (parseFloat(pigFriction))));
+        } else {
+            newVelocity = 0; 
+        }
+
+        tim = tim + dt; 	
+		
+		// Update movement using old value of velocity.
+		slugBackPressure = projslugback;
+		nm3Pumped = nm3Pumped + (dt * pump_nm3s);
+		previousVelocity = velocity;
+		velocity = newVelocity; 
+
+		// Update mass for amount discharge in this time step. 
+		slugVolume = (elevationProfile[elevationProfile.length - 1][0] - slugBackPressure) * area;
+		mass = slugVolume * rho; 
+
+		// Update slug length for getfric
+		slugLength = slugVolume / area;
 		
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
@@ -173,3 +273,42 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	return outputArrayOfObjects;
 }
 
+
+
+
+/**
+ * 
+ *  calculates flowdp &  friction factor for Darcy derivation  &  reynolds number
+ * 
+ */
+ function getFriction(flow_dp){
+    let re;
+    let terma;
+    let termb;
+    let f;
+    let fric; 
+
+    if(velocity = 0){
+        flow_dp = 0; 
+        return; 
+    }
+
+    re = Math.abs(rho * velocity * insideDiameter / eta);
+
+    if (re > 0.001){
+        terma = (2.457 * Log(1 / ((7 / re) ** 0.9 + (0.27 * (parseFloat(roughness)) / insideDiameter)))) ** 16;
+        termb = (37530 / re) ** 16;
+        f = ((8 / re) ** 12 + (1 / (terma + termb) ** 1.5)) ** 0.083333;
+        fric = 8 * f;  // For Darcy derivation
+    } else {
+        fric = 64 / re; // Darcy 
+    }
+
+    flow_dp = fric * rho * (velocity ** 2) * slugLength * 0.5 / insideDiameter; 
+
+    if(velocity < 0){
+        flow_dp = -flow_dp; 
+    }
+
+    return; 
+}
