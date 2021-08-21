@@ -138,7 +138,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let injectionVolume = 0; 
 	let displacementRate = 0;
 	let displacementVolume = 0;   
-	let newVelocity = 0; 
 	let dt = 0; 
 	let main_dt = 0; 
 	let endFlag = 0; 
