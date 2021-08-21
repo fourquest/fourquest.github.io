@@ -165,7 +165,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		console.log(elevationProfile[i][0]);
 		console.log(elevationProfile[i][1]);
 
-		
+		tim++;
 		
 		outputObject.time = tim;
 		outputObject.distance = elevationProfile[i][0];
