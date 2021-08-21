@@ -303,9 +303,9 @@ export function deserialize(text) {
 
 					if(line.charAt(n) != '"' && quoteSwitch == false && line.charAt(n) != ","){
 						largeNumberHolder = largeNumberHolder.concat(line.charAt(n));
-						console.log("large number holder is2: ");
+						console.log("large number holder is 2: ");
 						console.log(largeNumberHolder);
-						//console.log(largeNumberHolder);
+						
 					}
 
 					if(line.charAt(n) === ',' && quoteSwitch == false){
