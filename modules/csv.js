@@ -302,7 +302,7 @@ export function deserialize(text) {
 					if(line.charAt(n) != '"' && quoteSwitch == false && line.charAt(n) != ","){
 						largeNumberHolder = largeNumberHolder.concat(line.charAt(n));
 					}
-				console.log("NEW");
+				
 					if((line.charAt(n) === ',' && quoteSwitch == false) || (n == (line.length -2))){
 						holder.push(largeNumberHolder);
 						largeNumberHolder ="";
