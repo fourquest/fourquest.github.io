@@ -272,9 +272,9 @@ export function deserialize(text) {
 			// Detect if the record contains a number larger than 1000 represented as a string
 			// with a comma in it. 
 			for(let m = 0; m < line.length; m++){
-				console.log(line.length - 1);
 				if(line.charAt(m) == '"'){
 					largeNumber = true; 
+					console.log(largeNumber);
 					break;
 				}
 			}
