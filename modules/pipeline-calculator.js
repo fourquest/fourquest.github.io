@@ -133,41 +133,53 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
 	let cushion_n_m3 = cushion + area + cushionInitialBar;
 
-	// Declare output array
-	let output = [];
-
 	let injectionVelocity = 0; 
 	let injectionPressure = 0; 
 	let injectionVolume = 0; 
 	let displacementRate = 0;
 	let displacementVolume = 0; 
 
-	console.log("inside calculator");
+	// Declare output array of objects.
+	let outputArrayOfObjects = [];
+
+	// Declare the output objects (each object represents a row in the output table).
+	let ouputObject = 
+					{	
+						time:0, 
+						distance:0, 
+						elevation:0, 
+						injectionVelocity:0, 
+						injectionPressure:0, 
+						injectionVolume:0, 
+						displacementRate:0,
+						displacementVolume:0,	
+					};
+
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
 		console.log(i);
 		console.log(elevationProfile[i][0]);
 
-		let distance = elevationProfile[i][0];
-		let elevation = elevationProfile[i][1];
+		let thisDistance = elevationProfile[i][0];
+		let thisElevation = elevationProfile[i][1];
 		
-		output.push(tim);
-		output.push(distance);
-		output.push(elevation);
-		output.push(injectionVelocity);
-		output.push(injectionPressure);
-		output.push(injectionVolume)
-		output.push(displacementRate);
-		output.push(displacementVolume);
-
-		console.log("HERE"); 
+		outputObject.time = tim;
+		ouputObject.distance = thisDistance;
+		outputObject.elevation = thisElevation; 
+		outputObject.injectionVelocity = injectionVelocity;
+		outputObject.injectionPressure = injectionPressure;
+		outputObject.injectionVolume = injectionVolume;
+		outputObject.displacementRate = displacementRate;
+		outputObject.displacementVolume = displacementVolume; 
+		
+	
 	}
 
 	// If successful change element "Calculated injection profile" to green color
-	console.log("outside calculator");
-	console.log(output);
+	
+	console.log(outputArrayOfObjects);
 
-	return output;
+	return outputArrayOfObjects;
 }
 
