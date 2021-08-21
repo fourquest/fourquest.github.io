@@ -183,6 +183,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	
 	console.log(outputArrayOfObjects);
 
-	return 10;
+	return outputArrayOfObjects;
 }
 
