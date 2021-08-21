@@ -35,17 +35,17 @@ function onSubmit(event) {
 						"Time",
 
 						// Pipeline
-						"Distance",
-						"Elevation",
+						"Distance (m)",
+						"Elevation (m)",
 
 						// Injection
-						"Velocity",
-						"Pressure",
-						"IJ Volume",
+						"Pig Speed (m/s)",
+						"N2 Pressure",
+						"N2 Volume",
 
 						// Displacement
-						"Rate",
-						"DSP Volume",
+						"Outlet Rate",
+						"Purge Volume",
 					],
 					"content": profile.map(record => [
 						record.time,
