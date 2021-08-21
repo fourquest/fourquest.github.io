@@ -145,6 +145,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let cavFlag = 0; 
 	let projhydback = 0; 
 	let flow_dp = 0; 
+	let projslugback = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
