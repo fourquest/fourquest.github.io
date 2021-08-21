@@ -276,6 +276,7 @@ export function deserialize(text) {
 					largeNumber = true; 
 					break;
 				}
+				console.log("charAt is: ");
 				console.log(line.charAt(m));
 			}
 
@@ -301,7 +302,7 @@ export function deserialize(text) {
 
 					if(line.charAt(n) != '"' && quoteSwitch == false){
 						largeNumberHolder.concat(n);
-						console.log(largeNumberHolder);
+						//console.log(largeNumberHolder);
 					}
 
 					if(line.charAt(n) == ',' && quoteSwitch == false){
