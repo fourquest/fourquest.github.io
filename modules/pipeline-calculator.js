@@ -138,6 +138,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let injectionVolume = 0; 
 	let displacementRate = 0;
 	let displacementVolume = 0; 
+	let distance = 0;
+	let elevation = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
@@ -161,12 +163,12 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		console.log(i);
 		console.log(elevationProfile[i][0]);
 
-		let thisDistance = 44;
-		let thisElevation = 55;
+		distance = elevationProfile[i][0];
+		elevation = elevationProfile[i][1];
 		
 		outputObject.time = tim;
-		outputObject.distance = thisDistance;
-		outputObject.elevation = thisElevation; 
+		outputObject.distance = distance;
+		outputObject.elevation = elevation; 
 		outputObject.injectionVelocity = injectionVelocity;
 		outputObject.injectionPressure = injectionPressure;
 		outputObject.injectionVolume = injectionVolume;
