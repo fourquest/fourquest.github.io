@@ -134,16 +134,13 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
 	let cushion_n_m3 = cushion * area * cushionInitialBar;
 
-	let injectionPressure = 0; 
-	let injectionVolume = 0; 
-	let displacementRate = 0;
-	let displacementVolume = 0;   
+	let injectionPressure = 0;  
 	let dt = 0; 
 	let endFlag = 0; 
 	let cavdisable = 0; 
 	let projhydback = 0; 
 	let flow_dp = 0; 
-	let projslugback = 0; 
+	let projectedBackOfSlug = 0; 
 	let roughness = pipeline.roughnessFactor;
 	let elevation = 0; 
 
@@ -179,8 +176,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		cavitationAndMaxPressureDetection(elevationProfile[i][1], i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
 
 		if(tim > 0){
-			injectionPressure = backPressure + hydback + pigFriction + flow_dp; 
-
+			injectionPressure = (100000 / area) * (cushion_n_m3 + nm3Pumped + (pump_nm3s * dt)) / (cushion + backOfSlug + (velocity * dt));
 			if(backPressure < pressureLimit){
 				velocity = 0; 
 				backPressure = injectionPressure - hydback - pigFriction;
@@ -194,19 +190,19 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			injectionPressure = backPressure + hydback + pigFriction + flow_dp;
 		}
 
-		projslugback = backOfSlug + (velocity * dt); 
+		projectedBackOfSlug = backOfSlug + (velocity * dt); 
 
 		// Detect the end of the run
-		if(projslugback > (pipeline.purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
+		if(projectedBackOfSlug > (pipeline.purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
 			endflag = 1;
 			return outputArrayOfObjects;
 		}
 
-		elevation = interpolateElevation(projslugback, elevationProfile);
+		elevation = interpolateElevation(projectedBackOfSlug, elevationProfile);
 
 		elevationAtBack = elevation; 
 		projhydback = rho * 9.81 * (elevationAtFront - elevationAtBack); 
-		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
+		slugLength = elevationProfile[elevationProfile.length - 1][0] - projectedBackOfSlug;
 
 		// Comment from original program: gets flowdp,the flowing dp across the fluid slug, using sluglength
 		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
@@ -224,8 +220,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			newVelocity = 0; 
 		}
 
-		projslugback = backOfSlug + (newVelocity * dt);
-		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
+		projectedBackOfSlug = backOfSlug + (newVelocity * dt);
+		slugLength = elevationProfile[elevationProfile.length - 1][0] - projectedBackOfSlug;
 
 		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
 
@@ -235,8 +231,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			newVelocity = 0; 
 		}
 
-		projslugback = backOfSlug + (newVelocity * dt);
-		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
+		projectedBackOfSlug = backOfSlug + (newVelocity * dt);
+		slugLength = elevationProfile[elevationProfile.length - 1][0] - projectedBackOfSlug;
 
 		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
 
@@ -249,10 +245,20 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		tim = tim + dt; 
 
 		// Comment from original program: update movement using old value of velocity. 
-		
+		backOfSlug = projectedBackOfSlug;
+
+		nm3Pumped = nm3Pumped + (dt * pump_nm3s);
+		previousVelocity = velocity;
+		velocity = newVelocity; 
+
+		// Comment from original program: update mass for amount discharfed in this time step. 
+		slugVolume = (elevationProfile[elevationProfile.length - 1][0] - backOfSlug) * area; 
+		mass = slugVolume * rho; 
+
+		// Comment from original program: Update slugLength for getFriction().
+		slugLength = slugVolume / area;
 
 		// Declare the output objects (each object represents a row in the output table).
-		
 		let outputObject = 
 					{	
 						time: tim, 
@@ -268,6 +274,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		outputArrayOfObjects.push(outputObject);
 	}
 
+	console.log("END"); 
+	
 	// If successful change element "Calculated injection profile" to green color
 	document.getElementById("calculated-profile-header").style.color = "green";
 
