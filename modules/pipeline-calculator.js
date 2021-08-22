@@ -189,7 +189,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 
-		if(time = 0){
+		if(tim = 0){
 			injectionPressure = backPressure + hydback + pigFriction + flow_dp;
 		}
 
