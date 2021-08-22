@@ -78,8 +78,9 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// Calculate cross sectional area of the pipe. 
 	let area = 0.25 * (diameter ** 2) * Math.PI;
 
+	console.log(elevationProfile);
 	// Calculate slug volume 
-	let slugVolume = area * elevationProfile[elevationProfile.length][0];
+	//let slugVolume = area * ;
 
 	// Calculate free volume.
 	let freeVolume = area * pipeline.purgeLength;
@@ -165,7 +166,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			}
 		}
 
-		
+
 
 		// Declare the output objects (each object represents a row in the output table).
 		
