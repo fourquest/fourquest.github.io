@@ -145,6 +145,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let flow_dp = 0; 
 	let projslugback = 0; 
 	let roughness = pipeline.roughnessFactor;
+	let elevation = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
