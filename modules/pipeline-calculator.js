@@ -141,7 +141,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let main_dt = 0; 
 	let endFlag = 0; 
 	let cavdisable = 0; 
-	let cavFlag = 0; 
 	let projhydback = 0; 
 	let flow_dp = 0; 
 	let projslugback = 0; 
@@ -154,99 +153,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	for(let i = 0; i < elevationProfile.length; i++){
 		
 
-		if(slugBackPressure < 10){
-            dt = 0.1 * main_dt; 
-        } else if(velocity > 0) {
-            if( !(Math.abs(previousVelocity/newVelocity) > 1.01) ){
-                dt = 1.5 * dt; 
-            }
-        }
-
-		if(dt > main_dt){
-            dt = main_dt; 
-        }
-
-		if(endFlag = 1){
-            dt = dt / 10;
-            cavdisable = i + 1; 
-        }
-
-		// Call the function that looks for cavitation. 
-       // cavitation(rowNumber, cavdisable, pipeProfileRecord.Elevation, slugBackPressure, numberOfDataPoints);
-        
-	   if(cavFlag = 1){
-		/**
-		 * 
-		 * Add some kind of display about cavitation here! 
-		 * 
-		 */
-		//return;
-		}
-
-
-		if(tim > 0){
-            injectionPressure = (100000 / area) * (cushion_n_m3 + nm3Pumped + (pump_nm3s * dt)) / (cushion + slugBackPressure + (velocity * dt));
-            if(backPressure < pressureLimit){
-                velocity = 0; 
-                backPressure = injectionPressure - hydback - pigFriction;
-            } else {
-                backpressure = pressureLimit;
-            }
-        }
-
-		if(tim = 0){
-            injectionPressure = backPressure + hydback + pigFriction + flow_dp;
-        }
-
-        projslugback = slugBackPressure + (velocity * dt);
-		projhydback = rho * 9.81 * (elevationProfile[0][1] - elevationProfile[elevationProfile.length - 1][1]);
 		
-		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
-
-		// Gets flowdp, the delta P across the fluid slug, using sluglen.
-		getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
-
-		// Solve for new velocity.
-		if(backPressure >= pressureLimit){
-			newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - (parseFloat(pigFriction))));  
-			if(Math.abs(velocity) > 0){
-				if(Math.abs(newVelocity / velocity) > 1.01 || Math.abs(newVelocity / velocity) < 0.99){
-					dt = dt / 2; 
-					newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - (parseFloat(pigFriction))));
-				}
-			}
-		} else {
-			newVelocity = 0; 
-		}
-
-        projslugback = slugBackPressure + (newVelocity * dt);
-        slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback; 
-        
-
-		getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
-
-        if(backPressure >= pressureLimit){
-            newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - (parseFloat(pigFriction))));
-        } else {
-            newVelocity = 0; 
-        }
-
-        tim = tim + dt; 	
-		
-		// Update movement using old value of velocity.
-		slugBackPressure = projslugback;
-		nm3Pumped = nm3Pumped + (dt * pump_nm3s);
-		previousVelocity = velocity;
-		velocity = newVelocity; 
-
-		// Update mass for amount discharge in this time step. 
-		slugVolume = (elevationProfile[elevationProfile.length - 1][0] - slugBackPressure) * area;
-		mass = slugVolume * rho; 
-
-		// Update slug length for getfric
-		slugLength = slugVolume / area;
-
-		let hr = tim/60;
 
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
@@ -293,7 +200,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     re = Math.abs(rho * velocity * insideDiameter / eta);
 
     if (re > 0.001){
-        terma = (2.457 * Log(1 / ((7 / re) ** 0.9 + (0.27 * (parseFloat(roughness)) / insideDiameter)))) ** 16;
+        terma = (2.457 * Math.log(1 / ((7 / re) ** 0.9 + (0.27 * (roughness) / insideDiameter)))) ** 16;
         termb = (37530 / re) ** 16;
         f = ((8 / re) ** 12 + (1 / (terma + termb) ** 1.5)) ** 0.083333;
         fric = 8 * f;  // For Darcy derivation
@@ -304,8 +211,46 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     flow_dp = fric * rho * (velocity ** 2) * slugLength * 0.5 / insideDiameter; 
 
     if(velocity < 0){
-        flow_dp = -flow_dp; 
+        flow_dp = flow_dp - flow_dp - flow_dp; 
     }
 
     return; 
+}
+
+
+// Detects cavitation(pressure < 5 kPa) and if maximum pressure has been exceeded.
+function cavitationAndMaxPressureDetection(elevation, i, cavdiable, slugBackPressure, maxDistance, elevationFrontOfLine, backPressure, maxPipePressure, injectionPressure){
+	let interval = 50;
+	let cavlimit = 5000;
+	let lowppos = 0; 
+	let hydro = 0; 
+	let x = 0; 
+	let pressure = 0; 
+	
+	if(i > cavdisable + 10){
+		for(x = 1; x <= interval - 1; x++){
+			lowppos = slugBackPressure + ((maxDistance - slugBackPressure) * x / interval); 
+			elevation = interpolateElevation(lowppos, elevation);
+			hydro = rho * 9.81 * (elevationFrontOfLine - elevation);
+			pressure = hydro + backPressure + ((1 - ( x / interval )) * flow_dp); 
+
+			if((pressure > maxPipePressure) || (injectionPressure > maxPipePressure)){
+				if(pressure > maxPipePressure){
+					alert("Maximum Pressure was Exceeded at: " + slugBackPressure/1000 + " km, reduce N2 rate.");
+				} else {
+					alert("Max pressure was exceeded at injection point. Pressure is: " + injectionPressure/1000 + " kPa, reduce N2 rate.");
+				}
+			}
+
+			if(pressure < cavlimit){
+				alert("Cavitation detected at: " + slugBackPressure / 1000 + "km, backpressure too low: " + pressure / 1000 + "kPa");
+			}
+		}
+	}
+}
+
+
+// Calculates elevations throught the pipeline. 
+function interpolateElevation(place, eleva){
+	
 }
