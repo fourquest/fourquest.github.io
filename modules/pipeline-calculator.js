@@ -156,9 +156,10 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		
 
 		// Declare the output objects (each object represents a row in the output table).
+		
 		let outputObject = 
 					{	
-						time: hr, 
+						time: tim, 
 						distance: elevationProfile[i][0], 
 						elevation: elevationProfile[i][1], 
 						injectionVelocity: velocity * 3.6, 
