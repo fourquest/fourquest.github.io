@@ -165,6 +165,19 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			}
 		}
 
+		if(dt > main_dt){
+			dt = main_dt;
+		}
+
+		if(endFlag = 1){
+			dt = dt / 10; 
+			cavdisable = i; 
+		}
+
+		// Check for cavitation and make sure max pressure has not been exceeded. 
+		cavitationAndMaxPressureDetection(elevationProfile[i][1], i, cavdisable, backOfSlug, elevationAtBack, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
+
+
 		
 
 		// Declare the output objects (each object represents a row in the output table).
@@ -232,7 +245,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 
 // Detects cavitation(pressure < 5 kPa) and if maximum pressure has been exceeded.
-function cavitationAndMaxPressureDetection(elevation, i, cavdiable, backOfSlug, maxDistance, elevationFrontOfLine, backPressure, maxPipePressure, injectionPressure){
+function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug, elevationAtBack, elevationAtFront, backPressure, maxPipePressure, injectionPressure){
 	let interval = 50;
 	let cavlimit = 5000;
 	let lowppos = 0; 
@@ -242,9 +255,9 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdiable, backOfSlug, 
 	
 	if(i > cavdisable + 10){
 		for(x = 1; x <= interval - 1; x++){
-			lowppos = backOfSlug + ((maxDistance - backOfSlug) * x / interval); 
+			lowppos = backOfSlug + ((elevationAtBack - backOfSlug) * x / interval); 
 			elevation = interpolateElevation(lowppos, elevationProfile);
-			hydro = rho * 9.81 * (elevationFrontOfLine - elevation);
+			hydro = rho * 9.81 * (elevationAtFront - elevation);
 			pressure = hydro + backPressure + ((1 - ( x / interval )) * flow_dp); 
 
 			if((pressure > maxPipePressure) || (injectionPressure > maxPipePressure)){
