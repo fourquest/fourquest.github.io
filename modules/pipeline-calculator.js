@@ -79,7 +79,9 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let area = 0.25 * (diameter ** 2) * Math.PI;
 
 	// Calculate slug volume 
-	let slugVolume = area * parseFloat(elevationProfile[elevationProfile.length][0]);
+	let slugVolume = area * parseFloat(elevationProfile[elevationProfile.length][1]);
+	console.log(elevationProfile[elevationProfile.length][1]);
+	console.log(elevationProfile[elevationProfile.length][0]);
 
 	// Calculate free volume.
 	let freeVolume = area * pipeline.purgeLength;
