@@ -196,7 +196,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		projslugback = backOfSlug + (velocity * dt); 
 
 		// Detect the end of the run
-		if(projslugback > (purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
+		if(projslugback > (pipeline.purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
 			endflag = 1;
 			return outputArrayOfObjects;
 		}
