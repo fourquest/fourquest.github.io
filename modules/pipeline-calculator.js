@@ -110,7 +110,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let backOfSlug = 0;
 
 	//Comment from original program: elevationFrontOfLine is always at the far end of pipeline.
-	let elevationAtBack = interpolateElevation(backOfSlug);
+	let elevationAtBack = interpolateElevation(backOfSlug, elevationProfile);
 	let elevationAtFront = elevationProfile[elevationProfile.length-1][1];
 
 	// Calculate hydback (hydrostatic backpressure)
@@ -243,7 +243,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdiable, backOfSlug, 
 	if(i > cavdisable + 10){
 		for(x = 1; x <= interval - 1; x++){
 			lowppos = backOfSlug + ((maxDistance - backOfSlug) * x / interval); 
-			elevation = interpolateElevation(lowppos, elevation);
+			elevation = interpolateElevation(lowppos, elevationProfile);
 			hydro = rho * 9.81 * (elevationFrontOfLine - elevation);
 			pressure = hydro + backPressure + ((1 - ( x / interval )) * flow_dp); 
 
@@ -267,7 +267,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdiable, backOfSlug, 
 // The elevation of the slug must be interpolated because the slug exists over
 // multiple elevation points. 
 // Place is the back of the slug and eleva is the front of the slug. 
-function interpolateElevation(place){	
+function interpolateElevation(place, elevationProfile){	
 	let x = 0; 
 	let eleva;
 
