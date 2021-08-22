@@ -209,8 +209,46 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
 
 		// Comment from original program: gets flowdp,the flowing dp across the fluid slug, using sluglength
+		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
 
+		// Solve for new velocity
+		if(backPressure >= pressureLimit){
+			newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - pigFriction));
+			if(Math.abs(velocity) > 0){
+				if((Math.abs(newVelocity / velocity) > 1.01) || (Math.abs(newVelocity / velocity) < 0.99)){
+					dt = dt / 2; 
+					newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - pigFriction));
+				}
+			}
+		} else {
+			newVelocity = 0; 
+		}
 
+		projslugback = backOfSlug + (newVelocity * dt);
+		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
+
+		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
+
+		if(backPressure >= pressureLimit){
+			newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - pigFriction));
+		} else {
+			newVelocity = 0; 
+		}
+
+		projslugback = backOfSlug + (newVelocity * dt);
+		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
+
+		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
+
+		if(backPressure >= pressureLimit){
+			newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - pigFriction));
+		} else {
+			newVelocity = 0; 
+		}
+
+		tim = tim + dt; 
+
+		// Comment from original program: update movement using old value of velocity. 
 		
 
 		// Declare the output objects (each object represents a row in the output table).
