@@ -79,7 +79,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let area = 0.25 * (diameter ** 2) * Math.PI;
 
 	// Calculate slug volume 
-	let slugVolume = area * elevationProfile[elevationProfile.length - 1][0];
+	let slugVolume = area * (parseFloat(elevationProfile[elevationProfile.length - 1][0]));
 
 	// Calculate free volume.
 	let freeVolume = area * pipeline.purgeLength;
@@ -111,7 +111,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	//Comment from original program: elevationFrontOfLine is always at the far end of pipeline.
 	let elevationAtBack = interpolateElevation(backOfSlug, elevationProfile);
-	let elevationAtFront = elevationProfile[elevationProfile.length-1][1];
+	let elevationAtFront = (parseFloat(elevationProfile[elevationProfile.length-1][1]));
 
 	// Calculate hydback (hydrostatic backpressure)
 	// Comment from original program: get the hydrostatic at the back of the slug,
@@ -149,13 +149,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	let main_dt = 10; 
 
-	console.log(elevationProfile[0][0]);
-	console.log(typeof elevationProfile[0][0]);
-
-	console.log(elevationProfile[3][1]);
-	console.log(typeof elevationProfile[3][1]);
-	console.log(typeof elevationProfile); 
-
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
 		
@@ -180,7 +173,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		// Check for cavitation and make sure max pressure has not been exceeded. 
-		cavitationAndMaxPressureDetection(elevationProfile[i][1], i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
+		cavitationAndMaxPressureDetection((parseFloat(elevationProfile[i][1])), i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
 
 		if(tim > 0){
 			injectionPressure = (100000 / area) * (cushion_n_m3 + nm3Pumped + (pump_nm3s * dt)) / (cushion + backOfSlug + (velocity * dt));
@@ -209,7 +202,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		elevationAtBack = elevation; 
 		projhydback = rho * 9.81 * (elevationAtFront - elevationAtBack); 
-		slugLength = elevationProfile[elevationProfile.length - 1][0] - projectedBackOfSlug;
+		slugLength = (parseFloat(elevationProfile[elevationProfile.length - 1][0])) - projectedBackOfSlug;
 
 		// Comment from original program: gets flowdp,the flowing dp across the fluid slug, using sluglength
 		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
@@ -228,7 +221,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		projectedBackOfSlug = backOfSlug + (newVelocity * dt);
-		slugLength = elevationProfile[elevationProfile.length - 1][0] - projectedBackOfSlug;
+		slugLength = (parseFloat(elevationProfile[elevationProfile.length - 1][0])) - projectedBackOfSlug;
 
 		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
 
@@ -239,7 +232,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		projectedBackOfSlug = backOfSlug + (newVelocity * dt);
-		slugLength = elevationProfile[elevationProfile.length - 1][0] - projectedBackOfSlug;
+		slugLength = (parseFloat(elevationProfile[elevationProfile.length - 1][0])) - projectedBackOfSlug;
 
 		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
 
@@ -259,7 +252,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		velocity = newVelocity; 
 
 		// Comment from original program: update mass for amount discharfed in this time step. 
-		slugVolume = (elevationProfile[elevationProfile.length - 1][0] - backOfSlug) * area; 
+		slugVolume = ((parseFloat(elevationProfile[elevationProfile.length - 1][0])) - backOfSlug) * area; 
 		mass = slugVolume * rho; 
 
 		// Comment from original program: Update slugLength for getFriction().
@@ -269,8 +262,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		let outputObject = 
 					{	
 						time: tim, 
-						distance: elevationProfile[i][0], 
-						elevation: elevationProfile[i][1], 
+						distance: (parseFloat(elevationProfile[i][0])), 
+						elevation: (parseFloat(elevationProfile[i][1])), 
 						injectionVelocity: velocity * 3.6, 
 						injectionPressure: (((injectionPressure)/1000) - 101), 
 						injectionVolume: nm3Pumped, 
@@ -341,7 +334,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 	
 	if(i > cavdisable + 10){
 		for(x = 1; x <= interval - 1; x++){
-			lowppos = backOfSlug + ((elevationProfile[elevationProfile.length - 1][0] - backOfSlug) * x / interval); 
+			lowppos = backOfSlug + (((parseFloat(elevationProfile[elevationProfile.length - 1][0])) - backOfSlug) * x / interval); 
 			elevation = interpolateElevation(lowppos, elevationProfile);
 			hydro = rho * 9.81 * (elevationAtFront - elevation);
 			pressure = hydro + backPressure + ((1 - ( x / interval )) * flow_dp); 
@@ -371,22 +364,22 @@ function interpolateElevation(place, elevationProfile){
 	let eleva;
 
 	for(let n = 1; n < elevationProfile.length; n++){
-		if(place >= elevationProfile[n][0] && place < elevationProfile[n+1][0]){
+		if(place >= (parseFloat(elevationProfile[n][0])) && place < (parseFloat(elevationProfile[n+1][0]))){
 			x = n;
 		}
 	}
 
 	// If the back of this section is the injection point. 
-	if (place <= elevationProfile[0][0]){
-		eleva = elevationProfile[0][1];
+	if (place <= (parseFloat(elevationProfile[0][0]))){
+		eleva = (parseFloat(elevationProfile[0][1]));
 	}
 
-	if(place >= elevationProfile[0][0] && place < elevationProfile[elevationProfile.length - 1][0]){
-		eleva = elevationProfile[x][1] + ((place - elevationProfile[x][0]) / (elevationProfile[x+1][0] - elevationProfile[x][0])) * (elevationProfile[x+1][1] - elevationProfile[x][1]);
+	if(place >= (parseFloat(elevationProfile[0][0])) && place < (parseFloat(elevationProfile[elevationProfile.length - 1][0]))){
+		eleva = (parseFloat(elevationProfile[x][1])) + ((place - (parseFloat(elevationProfile[x][0]))) / ((parseFloat(elevationProfile[x+1][0])) - (parseFloat(elevationProfile[x][0])))) * ((parseFloat(elevationProfile[x+1][1])) - (parseFloat(elevationProfile[x][1])));
 	}
 
-	if(place >= elevationProfile[elevationProfile.length - 1][0]){
-		eleva = elevationProfile[elevationProfile.length - 1][1];
+	if(place >= (parseFloat(elevationProfile[elevationProfile.length - 1][0]))){
+		eleva = (parseFloat(elevationProfile[elevationProfile.length - 1][1]));
 	}
 
 	return eleva; 
