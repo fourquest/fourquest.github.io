@@ -175,7 +175,39 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		// Check for cavitation and make sure max pressure has not been exceeded. 
-		cavitationAndMaxPressureDetection(elevationProfile[i][1], i, cavdisable, backOfSlug, elevationAtBack, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
+		cavitationAndMaxPressureDetection(elevationProfile[i][1], i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
+
+		if(tim > 0){
+			injectionPressure = backPressure + hydback + pigFriction + flow_dp; 
+
+			if(backPressure < pressureLimit){
+				velocity = 0; 
+				backPressure = injectionPressure - hydback - pigFriction;
+			} else {
+				backPressure = pressureLimit; 
+			}
+		}
+
+
+		if(time = 0){
+			injectionPressure = backPressure + hydback + pigFriction + flow_dp;
+		}
+
+		projslugback = backOfSlug + (velocity * dt); 
+
+		// Detect the end of the run
+		if(projslugback > (purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
+			endflag = 1;
+			return outputArrayOfObjects;
+		}
+
+		elevation = interpolateElevation(projslugback, elevationProfile);
+
+		elevationAtBack = elevation; 
+		projhydback = rho * 9.81 * (elevationAtFront - elevationAtBack); 
+		slugLength = elevationProfile[elevationProfile.length - 1][0] - projslugback;
+
+		// Comment from original program: gets flowdp,the flowing dp across the fluid slug, using sluglength
 
 
 		
@@ -245,7 +277,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 
 // Detects cavitation(pressure < 5 kPa) and if maximum pressure has been exceeded.
-function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug, elevationAtBack, elevationAtFront, backPressure, maxPipePressure, injectionPressure){
+function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure){
 	let interval = 50;
 	let cavlimit = 5000;
 	let lowppos = 0; 
@@ -255,7 +287,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 	
 	if(i > cavdisable + 10){
 		for(x = 1; x <= interval - 1; x++){
-			lowppos = backOfSlug + ((elevationAtBack - backOfSlug) * x / interval); 
+			lowppos = backOfSlug + ((elevationProfile[elevationProfile.length - 1][0] - backOfSlug) * x / interval); 
 			elevation = interpolateElevation(lowppos, elevationProfile);
 			hydro = rho * 9.81 * (elevationAtFront - elevation);
 			pressure = hydro + backPressure + ((1 - ( x / interval )) * flow_dp); 
