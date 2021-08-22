@@ -149,7 +149,12 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	let main_dt = 10; 
 
+	console.log(elevationProfile[0][0]);
 	console.log(typeof elevationProfile[0][0]);
+
+	console.log(elevationProfile[3][1]);
+	console.log(typeof elevationProfile[3][1]);
+	console.log(typeof elevationProfile); 
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
