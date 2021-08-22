@@ -136,7 +136,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	let injectionPressure = 0;  
 	let dt = 0; 
-	let endFlag = 0; 
 	let cavdisable = 0; 
 	let projhydback = 0; 
 	let flow_dp = 0; 
@@ -167,10 +166,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			dt = main_dt;
 		}
 
-		if(endFlag = 1){
-			dt = dt / 10; 
-			cavdisable = i; 
-		}
 
 		// Check for cavitation and make sure max pressure has not been exceeded. 
 		cavitationAndMaxPressureDetection((parseFloat(elevationProfile[i][1])), i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
@@ -194,7 +189,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		// Detect the end of the run
 		if(projectedBackOfSlug > (pipeline.purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
-			endflag = 1;
+			
 			return outputArrayOfObjects;
 		}
 
