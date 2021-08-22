@@ -61,7 +61,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let insideDiameter = (pipeline.outsideDiameter - (2 * pipeline.wallThickness));
 
 	// Convert inside pipe diameter to meters so it is in S.I.
-	insideDiameter = insideDiameter / 1000; 
+	let diameter = insideDiameter / 1000; 
 
 	// Convert initial nitrogen injection rate to S.I. (Nm3/sec).
 	let pump_nm3s = injectionFluid.initialRate / 60;
@@ -76,21 +76,21 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let maxPipePressure = pipeline.maximumPipePressure * 1000;
 
 	// Calculate cross sectional area of the pipe. 
-	let area = 0.25 * (insideDiameter * insideDiameter) * Math.PI;
+	let area = 0.25 * (diameter ** 2) * Math.PI;
 
-	// Calculate slug volume. 
-	let slugVolume = area * pipeline.totalLength;
+	// Calculate slug volume 
+	let slugVolume = area * elevationProfile[elevationProfile.length][0];
 
 	// Calculate free volume.
 	let freeVolume = area * pipeline.purgeLength;
 
 	// Calculare free volume per kilometer.
-	let freeVolumePerKm = area * 1000;
+	let freeVolumePerKm = freeVolume / (pipeline.purgeLength / 1000);
 
 	// Calculare mass of slug (mass of fluid being displaced).
 	let mass = slugVolume * rho;
 
-	// Calculate pressure limit.
+	// Calculate pressure limit = initial back pressure, convert to Pascals from kPa
 	let pressureLimit = injectionFluid.initialBackPressure * 1000;
 
 	// Calculare pinit (pressure initial?)
@@ -105,17 +105,18 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// Time is initially zero.
 	let tim = 0;
 
-	// Slug back pressure is initially 0 becuase slug initially fills line.
-	let slugBackPressure = 0;
+	// backOfSlug is the distance at which the back of the slug is located (realative to injection point).
+	// backOfSlug is initially 0 becuase slug initially fills line. 
+	let backOfSlug = 0;
 
 	//Comment from original program: elevationFrontOfLine is always at the far end of pipeline.
-	let elevationBackOfLine = elevationProfile[0][1];
-	let elevationFrontOfLine = elevationProfile[elevationProfile.length-1][1];
+	let elevationAtBack = interpolateElevation(backOfSlug);
+	let elevationAtFront = elevationProfile[elevationProfile.length-1][1];
 
 	// Calculate hydback (hydrostatic backpressure)
 	// Comment from original program: get the hydrostatic at the back of the slug,
 	// hydback is +ve when back of slug is lower than front.
-	let hydback = Math.abs(rho * 9.81 * (elevationFrontOfLine - elevationBackOfLine));
+	let hydback = rho * 9.81 * (elevationAtFront - elevationAtBack);
 
 	// Comment from original program: initial pump rate is specified,
 	// Assume it is barely moving(vel=initvel)
@@ -131,14 +132,13 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     // (Cushion is likely a factor of safety).
 	let cushion = 10;
 	let cushionInitialBar = (pinit + hydback + pigFriction) / 100000;
-	let cushion_n_m3 = cushion + area + cushionInitialBar;
+	let cushion_n_m3 = cushion * area * cushionInitialBar;
 
 	let injectionPressure = 0; 
 	let injectionVolume = 0; 
 	let displacementRate = 0;
 	let displacementVolume = 0;   
 	let dt = 0; 
-	let main_dt = 0; 
 	let endFlag = 0; 
 	let cavdisable = 0; 
 	let projhydback = 0; 
@@ -149,9 +149,21 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
 
+	let main_dt = 10; 
+
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
 		
+		if(backOfSlug < 10){
+			dt = 0.1 * main_dt;
+
+		} else {
+			if(velocity > 0) {
+				if(!((Math.abs(previousVelocity/newVelocity)) > 0.1)){
+					dt = 1.5 * dt; 
+				}
+			}
+		}
 
 		
 
@@ -166,7 +178,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 						injectionPressure: (((injectionPressure)/1000) - 101), 
 						injectionVolume: nm3Pumped, 
 						displacementRate:  ((velocity * area) * 60),
-						displacementVolume: ((slugBackPressure / 1000) * freeVolumePerKm),
+						displacementVolume: ((backOfSlug / 1000) * freeVolumePerKm),
 					};
 		
 		outputArrayOfObjects.push(outputObject);
@@ -195,7 +207,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
     if(velocity = 0){
         flow_dp = 0; 
-        return; 
+        return flow_dp; 
     }
 
     re = Math.abs(rho * velocity * insideDiameter / eta);
@@ -215,12 +227,12 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
         flow_dp = flow_dp - flow_dp - flow_dp; 
     }
 
-    return; 
+    return flow_dp; 
 }
 
 
 // Detects cavitation(pressure < 5 kPa) and if maximum pressure has been exceeded.
-function cavitationAndMaxPressureDetection(elevation, i, cavdiable, slugBackPressure, maxDistance, elevationFrontOfLine, backPressure, maxPipePressure, injectionPressure){
+function cavitationAndMaxPressureDetection(elevation, i, cavdiable, backOfSlug, maxDistance, elevationFrontOfLine, backPressure, maxPipePressure, injectionPressure){
 	let interval = 50;
 	let cavlimit = 5000;
 	let lowppos = 0; 
@@ -230,21 +242,21 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdiable, slugBackPres
 	
 	if(i > cavdisable + 10){
 		for(x = 1; x <= interval - 1; x++){
-			lowppos = slugBackPressure + ((maxDistance - slugBackPressure) * x / interval); 
+			lowppos = backOfSlug + ((maxDistance - backOfSlug) * x / interval); 
 			elevation = interpolateElevation(lowppos, elevation);
 			hydro = rho * 9.81 * (elevationFrontOfLine - elevation);
 			pressure = hydro + backPressure + ((1 - ( x / interval )) * flow_dp); 
 
 			if((pressure > maxPipePressure) || (injectionPressure > maxPipePressure)){
 				if(pressure > maxPipePressure){
-					alert("Maximum Pressure was Exceeded at: " + slugBackPressure/1000 + " km, reduce N2 rate.");
+					alert("Maximum Pressure was Exceeded at: " + backOfSlug/1000 + " km, reduce N2 rate.");
 				} else {
 					alert("Max pressure was exceeded at injection point. Pressure is: " + injectionPressure/1000 + " kPa, reduce N2 rate.");
 				}
 			}
 
 			if(pressure < cavlimit){
-				alert("Cavitation detected at: " + slugBackPressure / 1000 + "km, backpressure too low: " + pressure / 1000 + "kPa");
+				alert("Cavitation detected at: " + backOfSlug / 1000 + "km, backpressure too low: " + pressure / 1000 + "kPa");
 			}
 		}
 	}
@@ -252,6 +264,31 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdiable, slugBackPres
 
 
 // Calculates elevations throught the pipeline. 
-function interpolateElevation(place, eleva){
-	
+// The elevation of the slug must be interpolated because the slug exists over
+// multiple elevation points. 
+// Place is the back of the slug and eleva is the front of the slug. 
+function interpolateElevation(place){	
+	let x = 0; 
+	let eleva;
+
+	for(let n = 1; n < elevationProfile.length; n++){
+		if(place >= elevationProfile[n][0] && place < elevationProfile[n+1][0]){
+			x = n;
+		}
+	}
+
+	// If the back of this section is the injection point. 
+	if (place <= elevationProfile[0][0]){
+		eleva = elevationProfile[0][1];
+	}
+
+	if(place >= elevationProfile[0][0] && place < elevationProfile[elevationProfile.length - 1][0]){
+		eleva = elevationProfile[x][1] + ((place - elevationProfile[x][0]) / (elevationProfile[x+1][0] - elevationProfile[x][0])) * (elevationProfile[x+1][1] - elevationProfile[x][1]);
+	}
+
+	if(place >= elevationProfile[elevationProfile.length - 1][0]){
+		eleva = elevationProfile[elevationProfile.length - 1][1];
+	}
+
+	return eleva; 
 }
