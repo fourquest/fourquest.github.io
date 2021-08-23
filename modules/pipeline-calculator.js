@@ -195,6 +195,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Detect the end of the run
 		if(projectedBackOfSlug > (pipeline.purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
 			endFlag = 1;
+			console.log("detect end of run");
 			return outputArrayOfObjects;
 		}
 
@@ -274,7 +275,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		outputArrayOfObjects.push(outputObject);
 	}
 
-	console.log("END"); 
+	
 	
 	// If successful change element "Calculated injection profile" to green color
 	document.getElementById("calculated-profile-header").style.color = "green";
