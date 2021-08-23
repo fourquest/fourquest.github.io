@@ -377,7 +377,7 @@ function interpolateElevation(place, elevationProfile){
 	let x = 0; 
 	let eleva;
 	console.log("in interpolateEleva function");
-	for(let n = 1; n < elevationProfile.length; n++){
+	for(let n = 1; n < elevationProfile.length - 1; n++){
 		if(place >= (parseFloat(elevationProfile[n][0])) && place < (parseFloat(elevationProfile[n+1][0]))){
 			x = n;
 		}
