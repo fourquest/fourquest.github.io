@@ -326,6 +326,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     }
 
     re = Math.abs(rho * velocity * insideDiameter / eta);
+	console.log("-->re: " + re);
 
     if (re > 0.001){
         terma = (2.457 * Math.log(1 / ((7 / re) ** 0.9 + (0.27 * (roughness) / insideDiameter)))) ** 16;
@@ -336,7 +337,12 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
         fric = 64 / re; // Darcy 
     }
 
+	console.log("-->terma: " + terma);
+	console.log("termb: " + termb);
+	console.log("f: "+ f); 
+
     flow_dp = fric * rho * (velocity ** 2) * slugLength * 0.5 / insideDiameter; 
+	console.log("FLOW_DP: " + flow_dp);
 
     if(velocity < 0){
         flow_dp = flow_dp - flow_dp - flow_dp; 
