@@ -80,6 +80,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	// Calculate slug volume 
 	let slugVolume = area * (parseFloat(elevationProfile[elevationProfile.length - 1][0]));
+	console.log("slug volume: ");
+	console.log(slugVolume);
 
 	// Calculate free volume.
 	let freeVolume = area * pipeline.purgeLength;
@@ -112,6 +114,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	//Comment from original program: elevationFrontOfLine is always at the far end of pipeline.
 	let elevationAtBack = interpolateElevation(backOfSlug, elevationProfile);
 	let elevationAtFront = (parseFloat(elevationProfile[elevationProfile.length-1][1]));
+	console.log("elevation at front: " + elevationAtFront);
 
 	// Calculate hydback (hydrostatic backpressure)
 	// Comment from original program: get the hydrostatic at the back of the slug,
@@ -259,6 +262,16 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Comment from original program: Update slugLength for getFriction().
 		slugLength = slugVolume / area;
 
+		console.log(tim);
+		console.log(parseFloat(elevationProfile[i][0]));
+		console.log(parseFloat(elevationProfile[i][1]));
+		console.log(velocity * 3.6);
+		console.log((((injectionPressure)/1000) - 101));
+		console.log(nm3Pumped);
+		console.log(((velocity * area) * 60));
+		console.log(((backOfSlug / 1000) * freeVolumePerKm));
+
+
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
 					{	
@@ -297,7 +310,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     let termb;
     let f;
     let fric; 
-
+			console.log("in friction function");
     if(velocity = 0){
         flow_dp = 0; 
         return flow_dp; 
@@ -332,7 +345,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 	let hydro = 0; 
 	let x = 0; 
 	let pressure = 0; 
-	
+	console.log("in cavitation function");
 	if(i > cavdisable + 10){
 		for(x = 1; x <= interval - 1; x++){
 			lowppos = backOfSlug + (((parseFloat(elevationProfile[elevationProfile.length - 1][0])) - backOfSlug) * x / interval); 
@@ -363,7 +376,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 function interpolateElevation(place, elevationProfile){	
 	let x = 0; 
 	let eleva;
-
+	console.log("in interpolateEleva function");
 	for(let n = 1; n < elevationProfile.length; n++){
 		if(place >= (parseFloat(elevationProfile[n][0])) && place < (parseFloat(elevationProfile[n+1][0]))){
 			x = n;
@@ -383,5 +396,6 @@ function interpolateElevation(place, elevationProfile){
 		eleva = (parseFloat(elevationProfile[elevationProfile.length - 1][1]));
 	}
 
+	console.log("eleva: " + eleva);
 	return eleva; 
 }
