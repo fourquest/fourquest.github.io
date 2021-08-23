@@ -160,11 +160,14 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		} else {
 			if(velocity > 0) {
-				if(!((Math.abs(previousVelocity/newVelocity)) > 0.1)){
+				console.log("velocity line 163: " + velocity);
+				if(!((Math.abs(previousVelocity / newVelocity)) > 0.1)){
 					dt = 1.5 * dt; 
 				}
 			}
 		}
+
+		console.log("velocity line 170: " + velocity);
 
 		if(dt > main_dt){
 			dt = main_dt;
@@ -245,6 +248,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		} else {
 			newVelocity = 0; 
 		}
+
+		console.log("new velocity line 250: " + newVelocity);
 
 		tim = tim + dt; 
 
@@ -332,7 +337,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     if(velocity < 0){
         flow_dp = flow_dp - flow_dp - flow_dp; 
     }
-
+	console.log("flow_dp from fric func: " + flow_dp);
     return flow_dp; 
 }
 
