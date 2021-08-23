@@ -63,7 +63,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	// Convert inside pipe diameter to meters so it is in S.I.
 	let diameter = insideDiameter / 1000; 
 
-	// Convert initial nitrogen injection rate to S.I. (Nm3/sec).
+	// Convert initial nitrogen injection rate to S.I. (from m3/min to m3/sec).
 	let pump_nm3s = injectionFluid.initialRate / 60;
 
 	// Calculate fluid density (rho, kg/m3).
@@ -157,7 +157,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		} else {
 			if(velocity > 0) {
-				if(!((Math.abs(previousVelocity / newVelocity)) > 0.1)){
+				if(!((Math.abs(previousVelocity / newVelocity)) > 1.01)){
 					dt = 1.5 * dt; 
 				}
 			}
@@ -212,8 +212,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Solve for new velocity
 		if(backPressure >= pressureLimit){
 			newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - pigFriction));
-			if(Math.abs(velocity) > 0){
-				if((Math.abs(newVelocity / velocity) > 1.01) || (Math.abs(newVelocity / velocity) < 0.99)){
+			if((Math.abs(velocity)) > 0){
+				if(((Math.abs(newVelocity / velocity)) > 1.01) || ((Math.abs(newVelocity / velocity)) < 0.99)){
 					dt = dt / 2; 
 					newVelocity = velocity + ((dt * area / mass) * (injectionPressure - projhydback - flow_dp - backPressure - pigFriction));
 				}
@@ -260,14 +260,10 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Comment from original program: Update slugLength for getFriction().
 		slugLength = slugVolume / area;
 
-		let hr = tim / 3600;
-		let min = ((tim / 3600) - hr) * 60; 
-		let timeString = hr + "h " + min + "m";
-
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
 					{	
-						time: timeString, 
+						time: tim, 
 						distance: (parseFloat(elevationProfile[i][0])), 
 						elevation: (parseFloat(elevationProfile[i][1])), 
 						injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)), 
@@ -295,7 +291,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
  *  calculates flowdp &  friction factor for Darcy derivation  &  reynolds number
  * 
  */
- function getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength){
+ function getFriction(flow_dp, velocity, diameter, eta, roughness, rho, slugLength){
     let re;
     let terma;
     let termb;
@@ -307,10 +303,10 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
         return flow_dp; 
     }
 
-    re = Math.abs(rho * velocity * insideDiameter / eta);
+    re = Math.abs(rho * velocity * diameter / eta);
 
     if (re > 0.001){
-        terma = (2.457 * Math.log(1 / ((7 / re) ** 0.9 + (0.27 * (roughness) / insideDiameter)))) ** 16;
+        terma = (2.457 * (Math.log(1 / ((7 / re)) ** 0.9 + (0.27 * (roughness) / diameter)))) ** 16;
         termb = (37530 / re) ** 16;
         f = ((8 / re) ** 12 + (1 / (terma + termb) ** 1.5)) ** 0.083333;
         fric = 8 * f;  // For Darcy derivation
@@ -319,7 +315,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     }
 
 
-    flow_dp = fric * rho * (velocity ** 2) * slugLength * 0.5 / insideDiameter; 
+    flow_dp = fric * rho * (velocity ** 2) * slugLength * 0.5 / diameter; 
 
 
     if(velocity < 0){
@@ -371,7 +367,7 @@ function interpolateElevation(place, elevationProfile){
 	let eleva;
 
 	for(let n = 1; n < elevationProfile.length - 1; n++){
-		if(place >= (parseFloat(elevationProfile[n][0])) && place < (parseFloat(elevationProfile[n+1][0]))){
+		if((place >= (parseFloat(elevationProfile[n][0]))) && (place < (parseFloat(elevationProfile[n+1][0])))){
 			x = n;
 		}
 	}
@@ -381,7 +377,7 @@ function interpolateElevation(place, elevationProfile){
 		eleva = (parseFloat(elevationProfile[0][1]));
 	}
 
-	if(place >= (parseFloat(elevationProfile[0][0])) && place < (parseFloat(elevationProfile[elevationProfile.length - 1][0]))){
+	if((place >= (parseFloat(elevationProfile[0][0]))) && (place < (parseFloat(elevationProfile[elevationProfile.length - 1][0])))){
 		eleva = (parseFloat(elevationProfile[x][1])) + ((place - (parseFloat(elevationProfile[x][0]))) / ((parseFloat(elevationProfile[x+1][0])) - (parseFloat(elevationProfile[x][0])))) * ((parseFloat(elevationProfile[x+1][1])) - (parseFloat(elevationProfile[x][1])));
 	}
 
