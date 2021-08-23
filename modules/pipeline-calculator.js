@@ -173,7 +173,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			dt = main_dt;
 		}
 
-		if(endFlag = 1){
+		if(endFlag == 1){
 			dt = dt / 10; 
 			cavdisable = i; 
 		}
@@ -193,7 +193,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 
-		if(tim = 0){
+		if(tim == 0){
 			injectionPressure = backPressure + hydback + pigFriction + flow_dp;
 		}
 
@@ -321,7 +321,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     let fric; 
 			console.log("first velocity: " + velocity);
 			console.log("in friction function");
-    if(velocity = 0){
+    if(velocity == 0){
         flow_dp = 0; 
         return flow_dp; 
     }
@@ -332,7 +332,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	console.log("eta: " + eta);
 
     re = Math.abs(rho * velocity * insideDiameter / eta);
-	
+
 	console.log("-->re: " + re);
 
     if (re > 0.001){
