@@ -319,6 +319,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
     let termb;
     let f;
     let fric; 
+			console.log("first velocity: " + velocity);
 			console.log("in friction function");
     if(velocity = 0){
         flow_dp = 0; 
@@ -329,8 +330,9 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	console.log("velocity" + velocity);
 	console.log("insideDia: " + insideDiameter);
 	console.log("eta: " + eta);
-	
+
     re = Math.abs(rho * velocity * insideDiameter / eta);
+	
 	console.log("-->re: " + re);
 
     if (re > 0.001){
