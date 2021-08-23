@@ -276,11 +276,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 						time: tim, 
 						distance: (parseFloat(elevationProfile[i][0])), 
 						elevation: (parseFloat(elevationProfile[i][1])), 
-						injectionVelocity: velocity * 3.6, 
-						injectionPressure: (((injectionPressure)/1000) - 101), 
-						injectionVolume: nm3Pumped, 
-						displacementRate:  ((velocity * area) * 60),
-						displacementVolume: ((backOfSlug / 1000) * freeVolumePerKm),
+						injectionVelocity: parseFloat((velocity * 3.6).toFixed(3)), 
+						injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(3)), 
+						injectionVolume: parseFloat(nm3Pumped.toFixed(3)), 
+						displacementRate:  parseFloat(((velocity * area) * 60).toFixed(3)),
+						displacementVolume: parseFloat(((backOfSlug / 1000) * freeVolumePerKm).toFixed(3)),
 					};
 		
 		outputArrayOfObjects.push(outputObject);
