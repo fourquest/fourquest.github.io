@@ -325,6 +325,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
         return flow_dp; 
     }
 
+	console.log("rho" + rho);
+	console.log("velocity" + velocity);
+	console.log("insideDia: " + insideDiameter);
+	console.log("eta: " + eta);
+	
     re = Math.abs(rho * velocity * insideDiameter / eta);
 	console.log("-->re: " + re);
 
