@@ -260,27 +260,21 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Comment from original program: Update slugLength for getFriction().
 		slugLength = slugVolume / area;
 
-		console.log(tim);
-		console.log(parseFloat(elevationProfile[i][0]));
-		console.log(parseFloat(elevationProfile[i][1]));
-		console.log(velocity * 3.6);
-		console.log((((injectionPressure)/1000) - 101));
-		console.log(nm3Pumped);
-		console.log(((velocity * area) * 60));
-		console.log(((backOfSlug / 1000) * freeVolumePerKm));
-
+		let hr = tim / 3600;
+		let min = ((tim / 3600) - hr) * 60; 
+		let timeString = hr + "h " + min + "m";
 
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
 					{	
-						time: tim, 
+						time: timeString, 
 						distance: (parseFloat(elevationProfile[i][0])), 
 						elevation: (parseFloat(elevationProfile[i][1])), 
-						injectionVelocity: parseFloat((velocity * 3.6).toFixed(3)), 
-						injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(3)), 
-						injectionVolume: parseFloat(nm3Pumped.toFixed(3)), 
-						displacementRate:  parseFloat(((velocity * area) * 60).toFixed(3)),
-						displacementVolume: parseFloat(((backOfSlug / 1000) * freeVolumePerKm).toFixed(3)),
+						injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)), 
+						injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
+						injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
+						displacementRate:  parseFloat(((velocity * area) * 60).toFixed(2)),
+						displacementVolume: parseFloat(((backOfSlug / 1000) * freeVolumePerKm).toFixed(2)),
 					};
 		
 		outputArrayOfObjects.push(outputObject);
@@ -293,7 +287,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	return outputArrayOfObjects;
 }
-
 
 
 
