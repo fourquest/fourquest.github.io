@@ -180,6 +180,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		// Check for cavitation and make sure max pressure has not been exceeded. 
 		cavitationAndMaxPressureDetection((parseFloat(elevationProfile[i][1])), i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
+		console.log("velocity at line 183: " + velocity);
 
 		if(tim > 0){
 			injectionPressure = (100000 / area) * (cushion_n_m3 + nm3Pumped + (pump_nm3s * dt)) / (cushion + backOfSlug + (velocity * dt));
@@ -211,8 +212,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		projhydback = rho * 9.81 * (elevationAtFront - elevationAtBack); 
 		slugLength = (parseFloat(elevationProfile[elevationProfile.length - 1][0])) - projectedBackOfSlug;
 
+		console.log("VELO and FLOWDP before: " + velocity + " " + flow_dp);
 		// Comment from original program: gets flowdp,the flowing dp across the fluid slug, using sluglength
 		flow_dp = getFriction(flow_dp, velocity, insideDiameter, eta, roughness, rho, slugLength);
+
+		console.log("VELO and FLOWDP AFTER: " + velocity + " " + flow_dp);
 
 		// Solve for new velocity
 		if(backPressure >= pressureLimit){
