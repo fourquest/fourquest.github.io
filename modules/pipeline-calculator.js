@@ -249,6 +249,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		tim = tim + dt; 
 
+		console.log("tim: " + tim); 
+
 		// Comment from original program: update movement using old value of velocity. 
 		backOfSlug = projectedBackOfSlug;
 
