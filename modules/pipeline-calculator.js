@@ -259,15 +259,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		// Comment from original program: Update slugLength for getFriction().
 		slugLength = slugVolume / area;
-		
-		let hr = (tim / 3600);
-		let min = ((tim / 3600) - hr ) * 60; 
-		let timeString = String(hr) + "hr " + String(min) + "min";
 
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
 					{	
-						time: timeString, 
+						time: tim, 
 						distance: (parseFloat(elevationProfile[i][0])), 
 						elevation: (parseFloat(elevationProfile[i][1])), 
 						injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)), 
