@@ -267,7 +267,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		let outputObject = 
 					{	
 						time: tim, 
-						distance: (parseFloat(elevationProfile[i][0])), 
+						distance: (parseFloat(backOfSlug / 1000)), 
 						elevation: (parseFloat(elevationProfile[i][1])), 
 						injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)), 
 						injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
@@ -356,7 +356,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 
 			if(pressure < cavlimit){
 				let thisPressure = (pressure / 1000).toFixed(3);
-				alert("Cavitation detected at: " + backOfSlug / 1000 + "km, backpressure too low: " + thisPressure + "kPa");
+				alert("Cavitation detected at: " + backOfSlug / 1000 + " km, backpressure too low: " + thisPressure + "kPa");
 			}
 		}
 	}
