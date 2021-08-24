@@ -176,7 +176,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		// Check for cavitation and make sure max pressure has not been exceeded. 
-		cavitationAndMaxPressureDetection((parseFloat(elevationProfile[i][1])), i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho);
+		cavitationAndMaxPressureDetection((parseFloat(elevationProfile[i][1])), i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
 		
 
 		if(tim > 0){
@@ -330,7 +330,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 
 // Detects cavitation(pressure < 5 kPa) and if maximum pressure has been exceeded.
-function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho){
+function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp){
 	let interval = 50;
 	let cavlimit = 5000;
 	let lowppos = 0; 
