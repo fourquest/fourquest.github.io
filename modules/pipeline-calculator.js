@@ -349,12 +349,14 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 				if(pressure > maxPipePressure){
 					alert("Maximum Pressure was Exceeded at: " + backOfSlug/1000 + " km, reduce N2 rate.");
 				} else {
-					alert("Max pressure was exceeded at injection point. Pressure is: " + injectionPressure/1000 + " kPa, reduce N2 rate.");
+					let thisInject = (injectionPressure/1000).toFixed(3);
+					alert("Max pressure was exceeded at injection point. Pressure is: " + thisInject + " kPa, reduce N2 rate.");
 				}
 			}
 
 			if(pressure < cavlimit){
-				alert("Cavitation detected at: " + backOfSlug / 1000 + "km, backpressure too low: " + pressure / 1000 + "kPa");
+				let thisPressure = (pressure / 1000).toFixed(3);
+				alert("Cavitation detected at: " + backOfSlug / 1000 + "km, backpressure too low: " + thisPressure + "kPa");
 			}
 		}
 	}
