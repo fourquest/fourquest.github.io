@@ -83,9 +83,12 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	// Calculate free volume.
 	let freeVolume = area * pipeline.purgeLength;
+	console.log("Free volume: " + freeVolume);
 
 	// Calculare free volume per kilometer.
 	let freeVolumePerKm = freeVolume / (pipeline.purgeLength / 1000);
+	console.log("Free Volume per km: " + freeVolumePerKm);
+	console.log("");
 
 	// Calculare mass of slug (mass of fluid being displaced).
 	let mass = slugVolume * rho;
@@ -173,7 +176,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		// Check for cavitation and make sure max pressure has not been exceeded. 
-		cavitationAndMaxPressureDetection((parseFloat(elevationProfile[i][1])), i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure);
+		cavitationAndMaxPressureDetection((parseFloat(elevationProfile[i][1])), i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho);
 		
 
 		if(tim > 0){
@@ -327,7 +330,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 
 // Detects cavitation(pressure < 5 kPa) and if maximum pressure has been exceeded.
-function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure){
+function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho){
 	let interval = 50;
 	let cavlimit = 5000;
 	let lowppos = 0; 
