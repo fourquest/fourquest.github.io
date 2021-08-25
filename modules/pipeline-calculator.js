@@ -323,7 +323,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// if((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || i == 1 ){
 		if((parseFloat((backOfSlug / 1000).toFixed(2))) != (parseFloat((previousBackofSlug / 1000).toFixed(2)))){
 			// last = Math.trunc(backOfSlug / pipeline.outputDistance);
-			// let thisElevation = interpolateElevation(backOfSlug, elevationProfile);
+			 let thisElevation = interpolateElevation(backOfSlug, elevationProfile);
 
 			if (tim > main_dt || i == 1){let outputObject = 
 				{	
