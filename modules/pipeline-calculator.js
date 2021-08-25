@@ -193,8 +193,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Check for cavitation and make sure max pressure has not been exceeded. 
 		let passElevation = interpolateElevation(backOfSlug, elevationProfile);
 
-		cavitationAndMaxPressureDetection(passElevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
+		let endCheck = cavitationAndMaxPressureDetection(passElevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
 		
+		if(endCheck == 1){
+			return outputArrayOfObjects;
+		}
 
 		if(tim > 0){
 			injectionPressure = (100000 / area) * (cushion_n_m3 + nm3Pumped + (pump_nm3s * dt)) / (cushion + backOfSlug + (velocity * dt));
@@ -380,6 +383,7 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 	let hydro = 0; 
 	let x = 0; 
 	let pressure = 0; 
+	let endTrigger = 0;
 
 	if(i > cavdisable + 10){
 		for(x = 1; x <= interval - 1; x++){
@@ -391,21 +395,21 @@ function cavitationAndMaxPressureDetection(elevation, i, cavdisable, backOfSlug,
 			if((pressure > maxPipePressure) || (injectionPressure > maxPipePressure)){
 				if(pressure > maxPipePressure){
 					alert("Maximum Pressure was Exceeded at: " + backOfSlug/1000 + " km, reduce N2 rate.");
-					document.getElementById("elevation-profile-title").innerHTML = "Max pressure exceeded";
-					return outputArrayOfObjects;
+					document.getElementById("calculated-profile-header").innerHTML = "Max pressure exceeded";
+					return endTrigger = 1;
 				} else {
 					let thisInject = (injectionPressure/1000).toFixed(3);
 					alert("Max pressure was exceeded at injection point. Pressure is: " + thisInject + " kPa, reduce N2 rate.");
-					document.getElementById("elevation-profile-title").innerHTML = "Max pressure exceeded";
-					return outputArrayOfObjects;
+					document.getElementById("calculated-profile-header").innerHTML = "Max pressure exceeded";
+					return endTrigger = 1;
 				}
 			}
 
 			if(pressure < cavlimit){
 				let thisPressure = (pressure / 1000).toFixed(3);
 				alert("Cavitation detected at: " + backOfSlug / 1000 + " km, backpressure too low: " + thisPressure + "kPa");
-				document.getElementById("elevation-profile-title").innerHTML = "Cavitation detected";
-				return outputArrayOfObjects;
+				document.getElementById("calculated-profile-header").innerHTML = "Cavitation detected";
+				return endTrigger = 1;
 			}
 		}
 	}
