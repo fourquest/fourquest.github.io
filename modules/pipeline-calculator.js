@@ -167,7 +167,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		i++; 
 		console.log(i);
 
-		if(i > 20000){
+		if(i > 50000){
 			endFlag = 1; 
 		}
 
