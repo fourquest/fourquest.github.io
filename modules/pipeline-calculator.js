@@ -166,7 +166,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		i++; 
 
-		if(i > 10000000){
+		if(i > 10000){
 			endFlag = 1; 
 		}
 
