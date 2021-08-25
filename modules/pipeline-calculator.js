@@ -162,7 +162,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	console.log("output distance: "  + pipeline.outputDistance);
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
-	do{
+	do {
 		
 		if(backOfSlug < 10){
 			dt = 0.1 * main_dt;
@@ -213,7 +213,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			return outputArrayOfObjects;
 		}
 
-		if(i > 10000000){
+		if(i > 100){
 			endFlag = 1; 
 		}
 
@@ -292,7 +292,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		{	
 			time: h + "h " + m + "m", 
 			distance: (parseFloat(backOfSlug)), 
-			elevation: (parseFloat(elevationProfile[i][1])), 
+			elevation: (parseFloat(elevationProfile[1][1])), 
 			injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
 			injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
 			injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
@@ -302,7 +302,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		outputArrayOfObjects.push(outputObject);
 
-	} while (endFlag != 1);
+	} while (endFlag == 0);
 
 	// If successful change element "Calculated injection profile" to green color
 	document.getElementById("calculated-profile-header").style.color = "green";
