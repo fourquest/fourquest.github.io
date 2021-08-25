@@ -154,6 +154,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let last = 0; 
 	let i = 0; 
 	let previousBackofSlug = -1; 
+	let stopCav = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
@@ -166,10 +167,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		i++; 
 		console.log(i);
 
-		// if(previousBackofSlug.toFixed(5) == backOfSlug.toFixed(5)){
-		// 		alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
-		// 		return outputArrayOfObjects;
-		// }
+		if(previousBackofSlug.toFixed(5) == backOfSlug.toFixed(5)){
+				alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
+				return outputArrayOfObjects;
+		}
+
 		console.log("velocity: " + velocity);
 
 		if(velocity < 0.00001){
@@ -201,10 +203,13 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Check for cavitation and make sure max pressure has not been exceeded. 
 		let passElevation = interpolateElevation(backOfSlug, elevationProfile);
 
-		let endCheck = cavitationAndMaxPressureDetection(passElevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
+		if(stopCav == 0){
+			let endCheck = cavitationAndMaxPressureDetection(passElevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
+		}
+		
 		
 		if(endCheck == 1){
-			return outputArrayOfObjects;
+			stopCav = 1;
 		}
 
 		if(tim > 0){
