@@ -32,7 +32,7 @@ function onSubmit(event) {
 				const data = {
 					"headers": [
 						// System
-						"Purge Time",
+						"Purge Time --------",
 
 						// Pipeline
 						"Distance (m)",
