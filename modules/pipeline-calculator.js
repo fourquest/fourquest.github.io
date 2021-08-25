@@ -165,8 +165,9 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	do {
 
 		i++; 
+		console.log(i);
 
-		if(i > 10000){
+		if(i > 20000){
 			endFlag = 1; 
 		}
 
@@ -282,8 +283,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		tim = tim + dt; 
-
-		console.log("tim: " + tim); 
 
 		// Comment from original program: update movement using old value of velocity. 
 		backOfSlug = projectedBackOfSlug;
