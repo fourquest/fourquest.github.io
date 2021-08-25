@@ -153,6 +153,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let m = 0; 
 	let last = 0; 
 	let i = 0; 
+	let previousBackofSlug = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
@@ -166,6 +167,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		i++; 
 		console.log(i);
+
+		if(previousBackofSlug == backOfSlug){
+			alert("Slug stuck at" + (previousBackofSlug).toFixed(3) + " meters");
+			return outputArrayOfObjects;
+		}
 
 		if(i > 1000){
 			endFlag = 1; 
@@ -285,6 +291,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		tim = tim + dt; 
 
 		// Comment from original program: update movement using old value of velocity. 
+		previousBackofSlug = backOfSlug;
 		backOfSlug = projectedBackOfSlug;
 
 		nm3Pumped = nm3Pumped + (dt * pump_nm3s);
