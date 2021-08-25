@@ -308,12 +308,13 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || i == 1){
 			last = Math.trunc(backOfSlug / pipeline.outputDistance);
+			let thisElevation = interpolateElevation(backOfSlug, elevationProfile);
 
 			if (tim > main_dt || i == 1){let outputObject = 
 				{	
 					time: timeholderstring, 
 					distance: (parseFloat((backOfSlug / 1000).toFixed(2))), 
-					elevation: (parseFloat(elevationProfile[1][1])), 
+					elevation: (parseFloat(thisElevation)), 
 					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
 					injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
 					injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
