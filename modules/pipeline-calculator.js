@@ -163,7 +163,13 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	do {
-		
+
+		i++; 
+
+		if(i > 10000){
+			endFlag = 1; 
+		}
+
 		if(backOfSlug < 10){
 			dt = 0.1 * main_dt;
 
@@ -211,10 +217,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			endFlag = 1;
 			console.log("detect end of run");
 			return outputArrayOfObjects;
-		}
-
-		if(i > 100){
-			endFlag = 1; 
 		}
 
 		elevation = interpolateElevation(projectedBackOfSlug, elevationProfile);
@@ -308,7 +310,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	document.getElementById("calculated-profile-header").style.color = "green";
 
 	return outputArrayOfObjects;
-}
+} 
 
 
 
