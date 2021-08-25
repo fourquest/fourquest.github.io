@@ -280,8 +280,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		h = hr.toFixed(0);
 		m = min.toFixed(0);
 
-		if (((parseFloat(parseInt((backOfSlug / pipeline.outputDistance), 10))) > last) ||(i == 1)){
-			last = (parseFloat(parseInt((backOfSlug / pipeline.outputDistance), 10)));
+		if ((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || (i == 1)){
+			last = Math.trunc(backOfSlug / pipeline.outputDistance);
 
 			if (tim >= main_dt || i == 1){
 
