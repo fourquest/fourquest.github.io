@@ -166,11 +166,17 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		i++; 
 		console.log(i);
 
-		if(previousBackofSlug.toFixed(5) == backOfSlug.toFixed(5)){
-				alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
-				return outputArrayOfObjects;
-		}
+		// if(previousBackofSlug.toFixed(5) == backOfSlug.toFixed(5)){
+		// 		alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
+		// 		return outputArrayOfObjects;
+		// }
 		console.log("velocity: " + velocity);
+
+		if(velocity < 0.00001){
+			alert("Pig speed low: " + (velocity * 3.6 * 1000) + " meters/hour at: " + (previousBackofSlug).toFixed(2));
+			return outputArrayOfObjects;
+		}
+		
 
 		if(backOfSlug < 10){
 			dt = 0.1 * main_dt;
