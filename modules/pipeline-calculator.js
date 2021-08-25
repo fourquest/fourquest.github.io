@@ -308,7 +308,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		m = min.toFixed(0);
 
 		// Every 500 meters purge output data (or there will be too many data points in the output).
-		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > (last + 250) || i == 1){
+		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || i == 1 || (Math.trunc(backOfSlug / pipeline.outputDistance)) > (last - 250)){
 			last = Math.trunc(backOfSlug / pipeline.outputDistance);
 			let thisElevation = interpolateElevation(backOfSlug, elevationProfile);
 
