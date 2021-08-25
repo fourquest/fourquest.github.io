@@ -154,6 +154,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let last = 0; 
 	let i = 0; 
 	let previousBackofSlug = -1; 
+	let slugStuckCount = 0;
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
@@ -169,8 +170,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		console.log(i);
 
 		if(previousBackofSlug == backOfSlug){
-			alert("Slug stuck at" + (previousBackofSlug).toFixed(3) + " meters");
-			return outputArrayOfObjects;
+			slugStuckCount++;
+			if(slugStuckCount == 20){
+				alert("Slug stuck at " + (previousBackofSlug).toFixed(3) + " meters");
+				return outputArrayOfObjects;
+			}
 		}
 
 
@@ -318,7 +322,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 				{	
 					time: timeholderstring, 
 					distance: (parseFloat((backOfSlug / 1000).toFixed(2))), 
-					elevation: (parseFloat(thisElevation)), 
+					elevation: (parseFloat((thisElevation)).toFixed(2)), 
 					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
 					injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
 					injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
