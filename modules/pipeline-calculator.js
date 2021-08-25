@@ -231,7 +231,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			console.log("detect end of run");
 			let thisoutputObject = 
 				{	
-					time: h + "h " + m + "m", 
+					time: h + "h  " + m + "m", 
 					distance: (parseFloat(purgeLength / 1000)), 
 					elevation: (parseFloat(elevationProfile[1][1])), 
 					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),

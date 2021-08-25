@@ -35,7 +35,7 @@ function onSubmit(event) {
 						"Purge Time --------",
 
 						// Pipeline
-						"Distance (m)",
+						"Distance (km)",
 						"Elevation (m)",
 
 						// Injection
