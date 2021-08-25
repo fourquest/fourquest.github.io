@@ -169,13 +169,13 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		i++; 
 		console.log(i);
 
-		if(previousBackofSlug == backOfSlug){
-			slugStuckCount++;
-			if(slugStuckCount == 20){
-				alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
-				return outputArrayOfObjects;
-			}
-		}
+		// if(previousBackofSlug == backOfSlug){
+		// 	slugStuckCount++;
+		// 	if(slugStuckCount == 20){
+		// 		alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
+		// 		return outputArrayOfObjects;
+		// 	}
+		// }
 
 
 		if(backOfSlug < 10){
