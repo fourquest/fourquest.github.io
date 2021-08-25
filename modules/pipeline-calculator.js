@@ -172,7 +172,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		if(previousBackofSlug == backOfSlug){
 			slugStuckCount++;
 			if(slugStuckCount == 20){
-				alert("Pig stuck at " + (previousBackofSlug).toFixed(3) + " meters");
+				alert("Pig stuck at " + (previousBackofSlug).toFixed(2) + " meters");
 				return outputArrayOfObjects;
 			}
 		}

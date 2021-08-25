@@ -122,7 +122,6 @@ csv-editor::part(table) {
 csv-editor::part(thead) {
 	background-color: var(--primary-color);
 	color: #fff;
-	width: 400px;
 }
 
 csv-editor::part(tbody) {
