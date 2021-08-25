@@ -154,7 +154,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let last = 0; 
 	let i = 0; 
 	let previousBackofSlug = -1; 
-	let slugStuckCount = 0;
+	// let slugStuckCount = 0;
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
@@ -169,13 +169,13 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		i++; 
 		console.log(i);
 
-		// if(previousBackofSlug == backOfSlug){
-		// 	slugStuckCount++;
-		// 	if(slugStuckCount == 20){
-		// 		alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
-		// 		return outputArrayOfObjects;
-		// 	}
-		// }
+		if(previousBackofSlug.toFixed(3) == backOfSlug.toFixed(3)){
+			// slugStuckCount++;
+			// if(slugStuckCount == 20){
+				alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
+				return outputArrayOfObjects;
+			// }
+		}
 
 
 		if(backOfSlug < 10){
