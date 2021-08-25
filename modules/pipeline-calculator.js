@@ -172,7 +172,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		if(previousBackofSlug == backOfSlug){
 			slugStuckCount++;
 			if(slugStuckCount == 20){
-				alert("Slug stuck at " + (previousBackofSlug).toFixed(3) + " meters");
+				alert("Pig stuck at " + (previousBackofSlug).toFixed(3) + " meters");
 				return outputArrayOfObjects;
 			}
 		}
@@ -312,15 +312,15 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		min = ((tim/3600) - hr ) * 60; 
 		h = hr.toFixed(0);
 		m = min.toFixed(0);
-		let timeholderstring = h + "h " + m + "m";
 
 		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || i == 1){
 			last = Math.trunc(backOfSlug / pipeline.outputDistance);
+			console.log("last: " + last);
 			let thisElevation = interpolateElevation(backOfSlug, elevationProfile);
 
 			if (tim > main_dt || i == 1){let outputObject = 
 				{	
-					time: timeholderstring, 
+					time: h + "h " + m + "m", 
 					distance: (parseFloat((backOfSlug / 1000).toFixed(2))), 
 					elevation: (parseFloat((thisElevation)).toFixed(2)), 
 					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
