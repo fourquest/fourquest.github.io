@@ -265,7 +265,10 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		// Comment from original program: Update slugLength for getFriction().
 		slugLength = slugVolume / area;
 
-		console.log("tim 2: " + tim);
+		console.log("back of slug: " + backOfSlug);
+
+		let hr = parseInt((tim / 3600), 10);
+		console.log("hr: " + hr);
 
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
