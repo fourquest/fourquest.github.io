@@ -17,6 +17,7 @@
  * @property {number} wallThickness
  * @property {number} maximumPipePressure
  * @property {number} roughnessFactor
+ * @property {number} outputDistance
  */
 
 /**
@@ -146,11 +147,17 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let projectedBackOfSlug = 0; 
 	let roughness = pipeline.roughnessFactor;
 	let elevation = 0; 
+	let hr = 0;
+	let min = 0;
+	let h = 0;
+	let m = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
 
 	let main_dt = 10; 
+
+	console.log("output distance: "  + pipeline.outputDistance);
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	for(let i = 0; i < elevationProfile.length; i++){
@@ -267,8 +274,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		console.log("back of slug: " + backOfSlug);
 
-		let hr = parseInt((tim / 3600), 10);
-		console.log("hr: " + hr);
+		hr = tim / 3600;
+
 
 		// Declare the output objects (each object represents a row in the output table).
 		let outputObject = 
