@@ -154,14 +154,11 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let last = 0; 
 	let i = 0; 
 	let previousBackofSlug = -1; 
-	// let slugStuckCount = 0;
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
 
 	let main_dt = 10; 
-
-	console.log("output distance: "  + pipeline.outputDistance);
 
 	// Perform nitorgen injection calculations for each elevation profile data point starting here
 	do {
@@ -170,11 +167,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		console.log(i);
 
 		if(previousBackofSlug.toFixed(3) == backOfSlug.toFixed(3)){
-			// slugStuckCount++;
-			// if(slugStuckCount == 20){
 				alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
 				return outputArrayOfObjects;
-			// }
 		}
 
 
@@ -313,9 +307,9 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		h = hr.toFixed(0);
 		m = min.toFixed(0);
 
-		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || i == 1){
+		// Every 500 meters purge output data (or there will be too many data points in the output).
+		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > (last + 250) || i == 1){
 			last = Math.trunc(backOfSlug / pipeline.outputDistance);
-			console.log("last: " + last);
 			let thisElevation = interpolateElevation(backOfSlug, elevationProfile);
 
 			if (tim > main_dt || i == 1){let outputObject = 
