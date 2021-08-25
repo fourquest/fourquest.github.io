@@ -166,7 +166,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		i++; 
 
-		if(i > 10000){
+		if(i > 10000000){
 			endFlag = 1; 
 		}
 
@@ -302,15 +302,15 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		min = ((tim/3600) - hr ) * 60; 
 		h = hr.toFixed(0);
 		m = min.toFixed(0);
-
+		let timeholderstring = h + "h " + m + "m";
 
 		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || i == 1){
-			last = Math.trunc(backOfSlug / pipeline.outputDistance)
+			last = Math.trunc(backOfSlug / pipeline.outputDistance);
 
 			if (tim > main_dt || i == 1){let outputObject = 
 				{	
-					time: h + "h " + m + "m", 
-					distance: (parseFloat(backOfSlug / 1000)), 
+					time: timeholderstring, 
+					distance: (parseFloat((backOfSlug / 1000).toFixed(2))), 
 					elevation: (parseFloat(elevationProfile[1][1])), 
 					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
 					injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
