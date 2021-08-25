@@ -280,8 +280,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		h = hr.toFixed(0);
 		m = min.toFixed(0);
 
-		if ((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || (i == 1)){
-			last = Math.trunc(backOfSlug / pipeline.outputDistance);
+		if ((backOfSlug / pipeline.outputDistance) > last || (i == 1)){
+			last = backOfSlug / pipeline.outputDistance;
 
 			if (tim >= main_dt || i == 1){
 
@@ -291,7 +291,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 					time: h + "h " + m + "m", 
 					distance: (parseFloat(backOfSlug / 1000)), 
 					elevation: (parseFloat(elevationProfile[i][1])), 
-					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)), 
+					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
 					injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
 					injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
 					displacementRate:  parseFloat(((velocity * area) * 60).toFixed(2)),
