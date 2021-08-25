@@ -155,6 +155,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let i = 0; 
 	let previousBackofSlug = -1; 
 	let stopCav = 0; 
+	let endCheck = 0; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
@@ -204,7 +205,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		let passElevation = interpolateElevation(backOfSlug, elevationProfile);
 
 		if(stopCav == 0){
-			let endCheck = cavitationAndMaxPressureDetection(passElevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
+			endCheck = cavitationAndMaxPressureDetection(passElevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
 		}
 		
 		
