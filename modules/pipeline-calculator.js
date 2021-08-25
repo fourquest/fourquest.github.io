@@ -153,7 +153,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	let m = 0; 
 	let last = 0; 
 	let i = 0; 
-	let previousBackofSlug = 0; 
+	let previousBackofSlug = -1; 
 
 	// Declare output array of objects.
 	let outputArrayOfObjects = [];
