@@ -192,7 +192,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		// Check for cavitation and make sure max pressure has not been exceeded. 
 		let passElevation = interpolateElevation(backOfSlug, elevationProfile);
-		
+
 		cavitationAndMaxPressureDetection(passElevation, i, cavdisable, backOfSlug, elevationProfile, elevationAtFront, backPressure, maxPipePressure, injectionPressure, rho, flow_dp);
 		
 
@@ -218,6 +218,19 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		if(projectedBackOfSlug > (pipeline.purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
 			endFlag = 1;
 			console.log("detect end of run");
+			let thisoutputObject = 
+				{	
+					time: h + "h " + m + "m", 
+					distance: (parseFloat(purgeLength / 1000)), 
+					elevation: (parseFloat(elevationProfile[1][1])), 
+					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
+					injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
+					injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
+					displacementRate:  parseFloat(((velocity * area) * 60).toFixed(2)),
+					displacementVolume: parseFloat(((backOfSlug / 1000) * freeVolumePerKm).toFixed(2)),
+				};
+
+			outputArrayOfObjects.push(thisoutputObject);
 			return outputArrayOfObjects;
 		}
 
@@ -291,21 +304,24 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		m = min.toFixed(0);
 
 
-		// Declare the output objects (each object represents a row in the output table).
-		let outputObject = 
-		{	
-			time: h + "h " + m + "m", 
-			distance: (parseFloat(backOfSlug)), 
-			elevation: (parseFloat(elevationProfile[1][1])), 
-			injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
-			injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
-			injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
-			displacementRate:  parseFloat(((velocity * area) * 60).toFixed(2)),
-			displacementVolume: parseFloat(((backOfSlug / 1000) * freeVolumePerKm).toFixed(2)),
-		};
+		if((Math.trunc(backOfSlug / pipeline.outputDistance)) > last || i == 1){
+			last = Math.trunc(backOfSlug / pipeline.outputDistance)
 
-		outputArrayOfObjects.push(outputObject);
-
+			if (tim > main_dt || i == 1){let outputObject = 
+				{	
+					time: h + "h " + m + "m", 
+					distance: (parseFloat(backOfSlug / 1000)), 
+					elevation: (parseFloat(elevationProfile[1][1])), 
+					injectionVelocity: parseFloat((velocity * 3.6).toFixed(2)),
+					injectionPressure: parseFloat((((injectionPressure)/1000) - 101).toFixed(2)), 
+					injectionVolume: parseFloat(nm3Pumped.toFixed(2)), 
+					displacementRate:  parseFloat(((velocity * area) * 60).toFixed(2)),
+					displacementVolume: parseFloat(((backOfSlug / 1000) * freeVolumePerKm).toFixed(2)),
+				};
+		
+				outputArrayOfObjects.push(outputObject);
+			}
+		}
 	} while (endFlag == 0);
 
 	// If successful change element "Calculated injection profile" to green color
