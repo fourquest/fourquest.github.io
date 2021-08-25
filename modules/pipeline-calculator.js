@@ -173,9 +173,6 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 			return outputArrayOfObjects;
 		}
 
-		if(i > 1000){
-			endFlag = 1; 
-		}
 
 		if(backOfSlug < 10){
 			dt = 0.1 * main_dt;
