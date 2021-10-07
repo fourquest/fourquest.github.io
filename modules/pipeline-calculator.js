@@ -175,7 +175,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		 console.log("velocity: " + velocity);
 
-		if(velocity < 0.0001){
+		if(velocity < 0.0001 && endFlag == 0){
 			alert("Pig speed low: " + (velocity * 3.6 * 1000).toFixed(2) + " meters/hour at: " + (previousBackofSlug).toFixed(2));
 			return outputArrayOfObjects;
 		}
