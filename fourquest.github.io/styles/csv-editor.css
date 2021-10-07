@@ -1,0 +1,143 @@
+
+csv-editor {
+	display: block;
+	color: var(--primary-color);
+	width: 100%;
+	box-sizing: border-box;
+}
+
+csv-editor::part(footer) {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 1rem 0 0 0;
+	box-sizing: border-box;
+}
+
+csv-editor::part(separator) {
+	flex: 1 1 0;
+}
+
+csv-editor::part(footer-buttons) {
+
+}
+
+csv-editor::part(button) {
+	display: inline-flex;
+	text-decoration: none;
+	border: 1px solid var(--primary-color);
+	background-color: #fff;
+	color: var(--primary-color);
+	padding: 0.25rem 0.5rem;
+	font-weight: bold;
+	font-variant: all-small-caps;
+	margin-left: 0.25rem;
+}
+
+csv-editor::part(inactive) {
+	display: none !important;
+}
+
+csv-editor::part(button):hover {
+	color: #fff;
+	background-color: var(--primary-color);
+}
+
+csv-editor::part(text-view-button) {
+
+}
+
+csv-editor::part(table-view-button) {
+
+}
+
+csv-editor::part(upload-button) {
+
+}
+
+csv-editor::part(download-button) {
+
+}
+
+csv-editor::part(close-button) {
+
+}
+
+/** Captions */
+csv-editor::part(text-view-button):after {
+	content: "Text View";
+}
+
+csv-editor::part(table-view-button):after {
+	content: "Table View";
+}
+
+csv-editor::part(form-view-button):after {
+	content: "Form View";
+}
+
+csv-editor::part(upload-button):after {
+	content: "Upload";
+}
+
+csv-editor::part(download-button):after {
+	content: "Download";
+}
+
+csv-editor::part(close-button):after {
+	content: "Close";
+}
+
+
+/* View Mode Section */
+
+csv-editor::part(view) {
+	position: relative;
+	display: block;
+	overflow: auto;
+	border: 1px solid var(--primary-color);
+}
+
+csv-editor::part(textarea) {
+	position: absolute;
+	z-index: 0;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	resize: none;
+	font-size: 1rem;
+}
+
+csv-editor::part(table) {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 1rem;
+}
+
+csv-editor::part(thead) {
+	background-color: var(--primary-color);
+	color: #fff;
+}
+
+csv-editor::part(tbody) {
+	background-color: #fff;
+	color: var(--primary-color);
+}
+
+csv-editor::part(td) {
+	text-align: right;
+	padding: 0 0.5em;
+}
+
+csv-editor::part(text-view) {
+	height: 100px;
+}
+
+csv-editor::part(table-view) {
+	max-height: 200px;
+}

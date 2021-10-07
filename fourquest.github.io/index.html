@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="application-name" content="Injection Calculator"/>
+<meta name="author" content="Chelsie Bajic chbajic@protonmail.com"/>
+
+<link href="./images/logo.svg" rel="icon"/>
+<link href="./styles/light.css" rel="stylesheet" media="all and (prefers-color-scheme: light)"/>
+<link href="./styles/dark.css" rel="stylesheet" media="all and (prefers-color-scheme: dark)"/>
+<link href="styles/demo.css" rel="stylesheet" media="all">
+
+<title>FourQuest | Injection Calculator</title>
+
+<header class="site-header">
+	<a target="_blank" href="https://www.fourquest.com"><img class="site-logo" src="./images/logo-name.png"/></a>
+	<h2 id="program-title">Pipeline Displacement Calculator</h2>
+</header>
+<main class="site">
+	<section class="charts">
+		<pipeline-chart id="velocities-chart" label="Distance (km) vs Pig Speed (km/hr)"></pipeline-chart>
+		<pipeline-chart id="elevations-chart" label="Distance (km) vs Elevation (m)"></pipeline-chart>
+		<pipeline-chart id="pressures-chart" label="Distance (km) vs Injection Pressure (kPa)"></pipeline-chart>
+	</section>
+	<section class="data">
+		<br>
+		<details class="chart-injection-fluid" open>
+			<summary>Injection Parameters</summary>
+			<form id="injection-fluid-form" autocomplete="off" class="form-backgrounds">
+				<div class="field">
+					<label for="initial-rate">Initial N<sub>2</sub> Rate</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Initial Nitrogen Rate</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Sm<sup>3</sup>/min</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the initial pump rate in standard cubic 
+								meters per minute.
+							</dd>
+						</dl>
+					</div>
+					<input name="initialRate" id="initial-rate" placeholder="0.00" type="number" step="0.001" required/>
+				</div>
+				<div class="field">
+					<label for="initial-back-pressure">Initial Back Pressure</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Initial Back Pressure</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>kPa</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the inital back pressure of the slug to be 
+								displaced in kilopascals.
+							</dd>
+						</dl>
+					</div>
+					<input name="initialBackPressure" id="initial-back-pressure" placeholder="0.00" type="number" step="0.000001" required/>
+				</div>
+				<div class="field">
+					<label for="pig-friction">Pig Friction</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Pig Friction</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>kPa</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the specified friction of the pig in kilopascals.
+							</dd>
+						</dl>
+					</div>
+					<input name="pigFriction" id="pig-friction" placeholder="0.00" type="number" step="0.00001" required/>
+				</div>
+				<div class="field">
+					<label for="specific-gravity">Specific Gravity</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Specific Gravity of liquid fluid to be displaced</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>unitless</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the specific gravity of the liquid fluid that is to be displaced
+								by the nitorgen injection. 
+
+							</dd>
+						</dl>
+					</div>
+					<input name="specificGravity" id="specific-gravity" placeholder="0.00" type="number" step="0.000001" required/>
+				</div>
+				<div class="field">
+					<label for="viscosity">Viscosity</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Viscosity of liquid fluid to be displaced</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>cSt</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the viscosity of the liquid fluid that is to be displaced during
+								this injection in centistokes.
+							</dd>
+						</dl>
+					</div>
+					<input name="viscosity" id="viscosity" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="pig-bypass">Pig Bypass</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Pig Bypass</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Percent</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the pig bypass losses as a percent of the total N<sub>2</sub> volume. 
+							</dd>
+						</dl>
+					</div>
+					<input name="pigBypass" id="pig-bypass" placeholder="0.00" type="number" step="0.00001" required/>
+				</div>
+				<div class="field">
+					<label for="cool-down-losses">Cool Down Losses</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Cool Down Losses</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Percent</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the cool down losses as a percent of the total N<sub>2</sub> volume. 
+							</dd>
+						</dl>
+					</div>
+					<input name="coolDownLosses" id="cool-down-losses" placeholder="0.00" type="number" step="0.00001" required/>
+				</div>
+				<div class="field">
+					<label for="inject-fluid-submit" hidden>Update</label>
+					<input id="inject-fluid-submit" type="submit" value="Update"/>
+				</div>
+			</form>
+		</details>
+		<details class="chart-pipeline" open>
+			<summary>Pipeline</summary>
+			<form id="pipeline-form" autocomplete="off" class="form-backgrounds">
+				<div class="field">
+					<label for="total-length">Total Length</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Total Length</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Meters</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the total length of pipeline, this will be used to calculate the mass of the slug
+								if the length of pipline to be displaced (purge length) is less than the total length of the pipeline.  
+							</dd>
+						</dl>
+					</div>
+					<input name="purgeLength" id="purge-length" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="purge-length">Purge Length</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Purge Length</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Meters</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the length of pipeline to be purged (displaced) in meters. 
+							</dd>
+						</dl>
+					</div>
+					<input name="purgeLength" id="purge-length" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="outside-diameter">Outside Diameter</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Outside Diameter</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Millimetres</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the outside diameter of the pipeline in millimetres. 
+							</dd>
+						</dl>
+					</div>
+					<input name="outsideDiameter" id="outside-diameter" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="wall-thickness">Wall Thickness</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Wall Thickness</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Millimetres</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the wallthickness of the pipeline in millimetres. 
+							</dd>
+						</dl>
+					</div>
+					<input name="wallThickness" id="wall-thickness" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="maximum-pipe-pressure">Maximum Pipe Pressure</label><div class="tooltip">
+					<dl>
+						<dt><b>Name</b></dt>
+						<dd>Maximum Pipe Pressure</dd>
+						<br>
+						<dt><b>Units</b></dt>
+						<dd>kPa</dd>
+						<br>
+						<dt><b>Description</b></dt>
+						<dd>
+							Enter the maximum allowable pipe pressure in kilopascals.
+						</dd>
+					</dl>
+				</div>
+					<input name="maximumPipePressure" id="maximum-pipe-pressure" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="roughness-factor">Roughness</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Roughness</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Inches</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Enter the pipe roughness in inches. 
+							</dd>
+						</dl>
+					</div>
+					<input name="roughnessFactor" id="roughness-factor" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="output-distance">Output Distance</label>
+					<div class="tooltip">
+						<dl>
+							<dt><b>Name</b></dt>
+							<dd>Output Distance</dd>
+							<br>
+							<dt><b>Units</b></dt>
+							<dd>Meters</dd>
+							<br>
+							<dt><b>Description</b></dt>
+							<dd>
+								Output data interval in meters.
+								For example, entering 500 here will provide outout for every 0.5 km of pipeline,
+								entering 1000 will provide output at every 1 km of pipeline etc.. 
+							</dd>
+						</dl>
+					</div>
+					<input name="outputDistance" id="output-distance" placeholder="0.00" type="number" step="0.0001" required/>
+				</div>
+				<div class="field">
+					<label for="pipeline-submit" hidden>Update</label>
+					<input id="pipeline-submit" type="submit" value="Update"/>
+				</div>
+			</form>
+		</details>
+		<details class="elevation-profile" open>
+			<summary>Elevation Profile</summary>
+			<div class="form-backgrounds">
+				<div class="help-tooltip">Help
+					<span class="tooltiptext">Pipeline elevation profile must be uploaded as a csv file with distance parameter in the first column
+						and elevation parameter in the second column, both in meters.
+						<br><br> 
+						File must end with .csv
+						<br>
+						<img class="help-tooltip-images" src="./images/excel_sample.png"> 
+						<img class="help-tooltip-images" src="images/CSV_sample.png">
+						<br>
+						<span>
+							<u>Left photo</u>: Microsoft Excel example of pipeline profile, <b>must</b> be exported from Excel
+							as csv file before it can be used with this program. 
+							<br> 
+							<br> 
+							<u>Right photo</u>: Example of appropriate csv format.
+						</span>
+					</span>
+				</div>
+				<csv-editor mode="text"></csv-editor>
+			</div>
+		</details>
+		<br>
+		<details class="injection-profile-controls" open>
+			<summary id="calculated-profile-header" style="color: red;">Calculated Injection Profile</summary>
+			<div class="form-backgrounds">
+				<div class="buttons">
+					<a class="button" id="calculate-button" href="javascript: void 0">Calculate</a>
+					<a class="button" href="#injection-profile">View</a>
+					<a class="button" id="quick-download" href="javascript: void 0">Download</a>
+					<a class="button" id="clear-button" href="javascript: void 0">Clear</a>
+				</div>
+			</div>
+		</details>
+	</section>
+</main>
+
+<dialog id="injection-profile">
+	<header>
+		<h2 class="dialog-heading">Injection Profile</h2>
+	</header>
+	<csv-editor mode="readonly" close="#"></csv-editor>
+</dialog>
+
+<script src="modules/webstie.js" type="module"></script>

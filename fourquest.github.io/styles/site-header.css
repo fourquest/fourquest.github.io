@@ -1,0 +1,31 @@
+
+@media all and (min-width: 1100px) {
+	.site-header {
+		left: calc(100vw / 2 - 550px);
+	}
+}
+
+.site-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	margin:auto; 
+	height: 5rem;
+	width: 100%;
+	max-width: 1100px;
+	background: #fffffff8;
+	border: 0;
+	box-sizing: border-box;
+	border-top: 5px solid var(--dark-accent);
+	box-shadow: 0px 1px 2px #0004;
+	padding-right: 9.5rem;
+}
+
+.site-logo {
+	margin-left: 1rem;
+	height: 3rem;
+}
