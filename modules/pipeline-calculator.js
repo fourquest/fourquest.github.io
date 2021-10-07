@@ -237,7 +237,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		console.log("endFlag: " + endFlag);
 		console.log(" ");
 		if((projectedBackOfSlug > (pipeline.purgeLength - 2)) || (projectedBackOfSlug == NaN)
-			|| (backOfSlug == pipeline.purgeLength) || (backOfSlug == pipeline.totalLength) || (backOfSlug == NaN)){ // Do not attempt to calculate the last 2 meters of the run
+			|| (backOfSlug == (pipeline.purgeLength - 2)) || ((backOfSlug == pipeline.totalLength - 2)) || (backOfSlug == NaN)){ // Do not attempt to calculate the last 2 meters of the run
 			endFlag = 1;
 			console.log("detect end of run");
 			let thisoutputObject = 
