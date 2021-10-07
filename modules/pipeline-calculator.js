@@ -168,12 +168,12 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		i++; 
 		console.log(i);
 
-		// if(previousBackofSlug.toFixed(5) == backOfSlug.toFixed(5)){
+		// if(projectedBackOfSlug.toFixed(5) == backOfSlug.toFixed(5)){
 		// 		alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
 		// 		return outputArrayOfObjects;
 		// }
 
-		// console.log("velocity: " + velocity);
+		 console.log("velocity: " + velocity);
 
 		// if(velocity < 0.00001){
 		// 	alert("Pig speed low: " + (velocity * 3.6 * 1000).toFixed(2) + " meters/hour at: " + (previousBackofSlug).toFixed(2));
@@ -229,7 +229,8 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		projectedBackOfSlug = backOfSlug + (velocity * dt); 
-
+		console.log("projected back of slug: " + projectedBackOfSlug);
+		console.log("purge length: " + pipeline.purgeLength); 
 		// Detect the end of the run
 		console.log("endFlag: " + endFlag);
 		if(projectedBackOfSlug > (pipeline.purgeLength - 2)){ // Do not attempt to calculate the last 2 meters of the run
