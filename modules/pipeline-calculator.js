@@ -166,7 +166,7 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 	do {
 
 		i++; 
-		console.log(i);
+		console.log("Number of integrals taken: " + i);
 
 		// if(projectedBackOfSlug.toFixed(5) == backOfSlug.toFixed(5)){
 		// 		alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
@@ -229,11 +229,15 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		}
 
 		projectedBackOfSlug = backOfSlug + (velocity * dt); 
+		console.log("Back of slug: " + backOfSlug);
 		console.log("projected back of slug: " + projectedBackOfSlug);
 		console.log("purge length: " + pipeline.purgeLength); 
+		
 		// Detect the end of the run
 		console.log("endFlag: " + endFlag);
-		if(projectedBackOfSlug > (pipeline.purgeLength - 2) || projectedBackOfSlug == NaN){ // Do not attempt to calculate the last 2 meters of the run
+		console.log(" ");
+		if((projectedBackOfSlug > (pipeline.purgeLength - 2)) || (projectedBackOfSlug == NaN)
+			|| (backOfSlug == pipeline.purgeLength) || (backOfSlug == pipeline.totalLength) || (backOfSlug == NaN)){ // Do not attempt to calculate the last 2 meters of the run
 			endFlag = 1;
 			console.log("detect end of run");
 			let thisoutputObject = 
