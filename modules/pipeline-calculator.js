@@ -168,10 +168,10 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 		i++; 
 		console.log(i);
 
-		if(previousBackofSlug.toFixed(5) == backOfSlug.toFixed(5)){
-				alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
-				return outputArrayOfObjects;
-		}
+		// if(previousBackofSlug.toFixed(5) == backOfSlug.toFixed(5)){
+		// 		alert("Pig stopped at " + (previousBackofSlug).toFixed(2) + " meters");
+		// 		return outputArrayOfObjects;
+		// }
 
 		// console.log("velocity: " + velocity);
 
