@@ -175,10 +175,10 @@ export function injectionProfile(injectionFluid, pipeline, elevationProfile) {
 
 		 console.log("velocity: " + velocity);
 
-		// if(velocity < 0.00001){
-		// 	alert("Pig speed low: " + (velocity * 3.6 * 1000).toFixed(2) + " meters/hour at: " + (previousBackofSlug).toFixed(2));
-		// 	return outputArrayOfObjects;
-		// }
+		if(velocity < 0.0001){
+			alert("Pig speed low: " + (velocity * 3.6 * 1000).toFixed(2) + " meters/hour at: " + (previousBackofSlug).toFixed(2));
+			return outputArrayOfObjects;
+		}
 		
 
 		if(backOfSlug < 10){
